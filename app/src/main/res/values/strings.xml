@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Consulta CNPJ</string>
+    <string name="action_settings">Settings</string>
+    <string name="txt_url">URL:</string>
+    <string name="btn_pesquisar">PESQUISAR CNPJ</string>
+    <string name="hide_cnpj">Digite um CNPJ para consulta </string>
+    <string name="txt_cnpj">CNPJ:</string>
+</resources>
