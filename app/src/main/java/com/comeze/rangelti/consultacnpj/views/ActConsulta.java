@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.comeze.rangelti.consultacnpj.R;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
-import com.comeze.rangelti.consultacnpj.views.adpter.MyPrintDocumentAdapter;
 import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpesa;
 import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
