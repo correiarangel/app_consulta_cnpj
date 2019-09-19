@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.comeze.rangelti.consultacnpj.R;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
+import com.comeze.rangelti.consultacnpj.views.custom.PrintPDF;
 import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpesa;
 import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -217,6 +219,12 @@ public class ActConsulta extends AppCompatActivity {
         public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long id) {
 
             cnpj = (CnpjEmpesa) cnpjEmpRest.getPla().getItem(pos);
+            PrintPDF printPDF = new PrintPDF();
+            try {
+                printPDF.geralPDF(cnpj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
 
@@ -246,4 +254,6 @@ public class ActConsulta extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
