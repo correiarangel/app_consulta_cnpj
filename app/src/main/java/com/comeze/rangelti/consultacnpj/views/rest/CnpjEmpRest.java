@@ -14,7 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpesa;
+import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +31,7 @@ public class CnpjEmpRest {
     private ListView lv;
     private CnpjEmpresaAdapter pla;
     private ProgressDialog pDialog;
-    private CnpjEmpesa empesa ;
+    private CnpjEmpresa empesa ;
 
 
     public CnpjEmpRest(Context context, ListView lv) {
@@ -58,7 +58,7 @@ public class CnpjEmpRest {
                     public void onResponse(JSONObject response) {
 
                         // display response
-                        ArrayList<CnpjEmpesa>cnpjEmpesas = new ArrayList<>();
+                        ArrayList< CnpjEmpresa > cnpjEmpresas = new ArrayList<>();
 
                         try {
 
@@ -96,7 +96,7 @@ public class CnpjEmpRest {
                                 String extra = response.getString("extra");
 
 
-                                empesa = new CnpjEmpesa( boliing ,status ,cnpj ,ultima_atualizacao
+                                empesa = new CnpjEmpresa ( boliing ,status ,cnpj ,ultima_atualizacao
                                         ,tipo ,abertura ,nome ,fantasia ,atividade_principal
                                         ,atividades_secundarias ,natureza_juridica ,logradouro
                                         ,numero ,complemento ,cep ,bairro ,municipio ,uf ,porte
@@ -106,13 +106,13 @@ public class CnpjEmpRest {
 
                             }
 
-                            cnpjEmpesas.add(empesa);
+                            cnpjEmpresas.add(empesa);
                         }catch (JSONException e) {
                             e.printStackTrace();
                         }
 
 
-                        setPla(new CnpjEmpresaAdapter(getContext(),cnpjEmpesas ));
+                        setPla(new CnpjEmpresaAdapter(getContext(), cnpjEmpresas ));
                         getLv().setAdapter(getPla());
                         //fecha dialog
                         getpDialog().dismiss();

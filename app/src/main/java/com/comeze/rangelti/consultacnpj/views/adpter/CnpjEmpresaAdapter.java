@@ -8,16 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.comeze.rangelti.consultacnpj.R;
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpesa;
+import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 
 import java.util.List;
 
 public class CnpjEmpresaAdapter  extends BaseAdapter {
 
     private Context context;
-    private List<CnpjEmpesa> lista;
+    private List< CnpjEmpresa > lista;
 
-    public CnpjEmpresaAdapter(Context context, List<CnpjEmpesa> lista) {
+    public CnpjEmpresaAdapter(Context context, List< CnpjEmpresa > lista) {
         this.context = context;
         this.lista = lista;
     }
@@ -35,7 +35,7 @@ public class CnpjEmpresaAdapter  extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        CnpjEmpesa cnpj = lista.get(position);
+        CnpjEmpresa cnpj = lista.get(position);
 
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

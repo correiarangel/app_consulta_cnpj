@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.comeze.rangelti.consultacnpj.R;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
 import com.comeze.rangelti.consultacnpj.views.custom.PrintPDF;
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpesa;
+import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -48,8 +48,8 @@ public class ActConsulta extends AppCompatActivity {
 
     private EditText edtCNPJ;
     private Button btnPesquisar;
-    private CnpjEmpesa cnpj;
-    private List<CnpjEmpesa> cnpjEmpesas;
+    private CnpjEmpresa cnpj;
+    private List< CnpjEmpresa > cnpjEmpresas;
     private FloatingActionButton fltBtnPrint;
 
     private ListView lvCNPJ;
@@ -79,8 +79,8 @@ public class ActConsulta extends AppCompatActivity {
         btnPesquisar = findViewById(R.id.btnPesquisar);
         lvCNPJ = findViewById(R.id.lvCNPJ);
 
-        cnpjEmpesas = new ArrayList<CnpjEmpesa>();
-        empresaAdapter = new CnpjEmpresaAdapter(this, cnpjEmpesas);
+        cnpjEmpresas = new ArrayList< CnpjEmpresa >();
+        empresaAdapter = new CnpjEmpresaAdapter(this, cnpjEmpresas );
         lvCNPJ.setAdapter(empresaAdapter);
 
         cnpjEmpRest = new CnpjEmpRest(this,lvCNPJ);
@@ -218,7 +218,7 @@ public class ActConsulta extends AppCompatActivity {
 
         public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long id) {
 
-            cnpj = (CnpjEmpesa) cnpjEmpRest.getPla().getItem(pos);
+            cnpj = ( CnpjEmpresa ) cnpjEmpRest.getPla().getItem(pos);
             PrintPDF printPDF = new PrintPDF();
             try {
                 printPDF.geralPDF(cnpj);
