@@ -109,7 +109,7 @@ public class ActConsulta extends AppCompatActivity {
 					startPrint ( );
 				} else {
 					startMsg ( "Dispositivo incompatível com impressão!" );
-				//	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
+					//	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
 				}
 			}
 		} );

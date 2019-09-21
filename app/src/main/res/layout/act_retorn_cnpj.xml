@@ -133,7 +133,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/txtFone"
@@ -149,6 +150,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
+        android:visibility="gone"
         android:textColor="@android:color/background_dark" />
 
     <TextView
@@ -165,7 +167,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/txtUltimaAtualisacao"
@@ -179,8 +182,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
-
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -36,79 +36,108 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 	
 	public View getView ( int position, View convertView, ViewGroup parent ) {
 		CnpjEmpresa cnpj = lista.get ( position );
-		
-		
+				
 		LayoutInflater inflater = ( LayoutInflater ) context.getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
 		View view = inflater.inflate ( R.layout.act_retorn_cnpj, null );
 		
+		String razaSocial = cnpj.getNome ( );
+		String nomeFantasia = cnpj.getFantasia ( );
+		String documento = cnpj.getCnpj ( );
+		String dataAbertura = cnpj.getAbertura ( );
+		String tipo = cnpj.getTipo ( );
+		String atividadePrincipal = cnpj.getAtividade_principal ( );
+		String naturezaJuridica = cnpj.getNatureza_juridica ( );
+		String logradouro = cnpj.getLogradouro ( );
+		String num = cnpj.getNumero ( );
+		String complemento = cnpj.getComplemento ( );
+		String bairro = cnpj.getBairro ( );
+		String cep = cnpj.getCep ( );
+		String cidade = cnpj.getMunicipio ( );
+		String uf = cnpj.getUf ( );
+		String email = cnpj.getEmail ( ) == null? "nulo" : cnpj.getEmail ( ) ;
+		String fone = cnpj.getTelefone ( );
+		String situacao = cnpj.getSituacao ( );
+		String situacaoEspecial = cnpj.getCapital_social ( ) == null? "nulo": cnpj.getCapital_social ( );
+		String capitalSocial = cnpj.getData_situacao_especial ( );
+		String quadroSocios = cnpj.getQsa ( ) == null ? "nulo" : cnpj.getQsa ( );
+		String ultimaAtualização = cnpj.getUltima_atualizacao ( );
+		String status2 = cnpj.getStatus ( ) == null ? "nulo" : cnpj.getStatus ( );
+		//b = (a > 0) ? 1 : 2;
 		
-		TextView txtRazao = ( TextView ) view.findViewById ( R.id.txtRazao );
-		txtRazao.setText ( "Razão Social: " + cnpj.getNome ( ) );
+		TextView txtRazao = view.findViewById ( R.id.txtRazao );
+		txtRazao.setText ( String.format ( "Razão Social: %s", razaSocial ) );
 		
-		TextView txtFantasia = ( TextView ) view.findViewById ( R.id.txtFantasia );
-		txtFantasia.setText ( "Fantasia: " + cnpj.getFantasia ( ) );
+		TextView txtFantasia = view.findViewById ( R.id.txtFantasia );
+		txtFantasia.setText ( String.format ( "Nome Fantasia: %s", nomeFantasia ) );
 		
-		TextView txtCnpj = ( TextView ) view.findViewById ( R.id.txtCnpj );
-		txtCnpj.setText ( "CNPJ: " + cnpj.getCnpj ( ) );
+		TextView txtCnpj = view.findViewById ( R.id.txtCnpj );
+		txtCnpj.setText ( String.format ( "CNPJ: %s", documento ) );
 		
-		TextView txtDataAbetura = ( TextView ) view.findViewById ( R.id.txtDataAbetura );
-		txtDataAbetura.setText ( "Data abetura : " + cnpj.getAbertura ( ) );
+		TextView txtDataAbetura = view.findViewById ( R.id.txtDataAbetura );
+		txtDataAbetura.setText ( String.format ( "Data Abertura: %s", dataAbertura ) );
 		
+		TextView txtTipo = view.findViewById ( R.id.txtTipo );
+		txtTipo.setText ( String.format ( "Tipo: %s", tipo ) );
 		
-		TextView txtTipo = ( TextView ) view.findViewById ( R.id.txtTipo );
-		txtTipo.setText ( "Tipo : " + cnpj.getTipo ( ) );
+		TextView txtAtividadePrincipal = view.findViewById ( R.id.txtAtividadePrincipal );
+		txtAtividadePrincipal.setText ( String.format ( "Atividade Principal: %s", atividadePrincipal ) );
 		
-		TextView txtAtividadePrincipal = ( TextView ) view.findViewById ( R.id.txtAtividadePrincipal );
-		txtAtividadePrincipal.setText ( "Atividade Principal: " + cnpj.getAtividade_principal ( ) );
+		TextView txtNaturezaJuridica = view.findViewById ( R.id.txtNaturezaJuridica );
+		txtNaturezaJuridica.setText ( String.format ( "Natureza Jurídica: %s", naturezaJuridica ) );
 		
-		TextView txtNaturezaJuridica = ( TextView ) view.findViewById ( R.id.txtNaturezaJuridica );
-		txtNaturezaJuridica.setText ( "Natureza Juridica: " + cnpj.getNatureza_juridica ( ) );
+		TextView txtLongradouro = view.findViewById ( R.id.txtLongradouro );
+		txtLongradouro.setText ( String.format ( "End.: %s", logradouro ) );
 		
-		TextView txtLongradouro = ( TextView ) view.findViewById ( R.id.txtLongradouro );
-		txtLongradouro.setText ( "End. : " + cnpj.getStatus ( ) );
+		TextView txtNumero = view.findViewById ( R.id.txtNumero );
+		txtNumero.setText ( String.format ( "Número: %s", num ) );
 		
-		TextView txtNumero = ( TextView ) view.findViewById ( R.id.txtNumero );
-		txtNumero.setText ( "Numero : " + cnpj.getNumero ( ) );
+		TextView txtComplemento = view.findViewById ( R.id.txtComplemento );
+		txtComplemento.setText ( String.format ( "Complemento: %s", complemento ) );
 		
-		TextView txtComplemento = ( TextView ) view.findViewById ( R.id.txtComplemento );
-		txtComplemento.setText ( "Complemento : " + cnpj.getComplemento ( ) );
+		TextView txtBairro = view.findViewById ( R.id.txtBairro );
+		txtBairro.setText ( String.format ( "Data abetura: %s", bairro ) );
 		
-		TextView txtBairro = ( TextView ) view.findViewById ( R.id.txtBairro );
-		txtBairro.setText ( "Data abetura : " + cnpj.getBairro ( ) );
+		TextView txtCep = view.findViewById ( R.id.txtCep );
+		txtCep.setText ( String.format ( "CEP: %s", cep ) );
 		
-		TextView txtCep = ( TextView ) view.findViewById ( R.id.txtCep );
-		txtCep.setText ( "CEP : " + cnpj.getCep ( ) );
+		TextView txtMunicipio = view.findViewById ( R.id.txtMunicipio );
+		txtMunicipio.setText ( String.format ( "Município : %s", cidade ) );
 		
-		TextView txtMunicipio = ( TextView ) view.findViewById ( R.id.txtMunicipio );
-		txtMunicipio.setText ( "Municipio : " + cnpj.getMunicipio ( ) );
+		TextView txtEstado = view.findViewById ( R.id.txtEstado );
+		txtEstado.setText ( String.format ( "Estado: %s", uf ) );
 		
-		TextView txtEstado = ( TextView ) view.findViewById ( R.id.txtEstado );
-		txtEstado.setText ( "Estado: " + cnpj.getUf ( ) );
+		if ( email != "nulo" ) {
+			TextView txtEmail = view.findViewById ( R.id.txtEmail );
+			txtEmail.setText ( String.format ( "E-mail: %s", email ) );
+		}
 		
-		TextView txtEmail = ( TextView ) view.findViewById ( R.id.txtEmail );
-		txtEmail.setText ( "E-mail: " + cnpj.getEmail ( ) );
+		TextView txtFone = view.findViewById ( R.id.txtFone );
+		txtFone.setText ( String.format ( "Fone: %s", fone ) );
 		
-		TextView txtFone = ( TextView ) view.findViewById ( R.id.txtFone );
-		txtFone.setText ( "Fone. : " + cnpj.getTelefone ( ) );
+		TextView txtSituação = view.findViewById ( R.id.txtSituação );
+		txtSituação.setText ( String.format ( "Situação: %s", situacao ) );
 		
-		TextView txtSituação = ( TextView ) view.findViewById ( R.id.txtSituação );
-		txtSituação.setText ( "Situação : " + cnpj.getSituacao ( ) );
+		if(situacaoEspecial != "nulo") {
+			TextView txtDataSituacao = view.findViewById ( R.id.txtDataSituacao );
+			txtDataSituacao.setText ( String.format ( "Data Situação: %s", situacaoEspecial ) );
+		}
 		
-		TextView txtDataSituacao = ( TextView ) view.findViewById ( R.id.txtDataSituacao );
-		txtDataSituacao.setText ( "Data Situação : " + cnpj.getData_situacao_especial ( ) );
+		TextView txtCapitalSocial = view.findViewById ( R.id.txtCapitalSocial );
+		txtCapitalSocial.setText ( String.format ( "Capital Social: %s", capitalSocial ) );
 		
-		TextView txtCapitalSocial = ( TextView ) view.findViewById ( R.id.txtCapitalSocial );
-		txtCapitalSocial.setText ( "Capital Social : " + cnpj.getCapital_social ( ) );
+		if(quadroSocios != "nulo" ) {
+			TextView txtQuadroSocios = view.findViewById ( R.id.txtQuadroSocios );
+			txtQuadroSocios.setText ( String.format ( "Quadro Sócios: %s", quadroSocios ) );
+		}
 		
-		TextView txtQuadroSocios = ( TextView ) view.findViewById ( R.id.txtQuadroSocios );
-		txtQuadroSocios.setText ( "Quadro Socios : " + cnpj.getQsa ( ) );
+		TextView ultimaAtualisacao = view.findViewById ( R.id.txtUltimaAtualisacao );
+		ultimaAtualisacao.setText ( String.format ( "Atualizado em: %s", ultimaAtualização ) );
 		
-		TextView ultimaAtualisacao = ( TextView ) view.findViewById ( R.id.txtUltimaAtualisacao );
-		ultimaAtualisacao.setText ( "Atualisado em :" + cnpj.getUltima_atualizacao ( ) );
-		
-		TextView status = ( TextView ) view.findViewById ( R.id.txtStatus );
-		status.setText ( "Status : " + cnpj.getStatus ( ) );
-		
+		if ( status2 != "nulo" )  {
+			TextView status = view.findViewById ( R.id.txtStatus );
+			status.setVisibility ( View.INVISIBLE );
+			status.setText ( String.format ( "Status: %s", status2 ) );
+		}
 		
 		return view;
 	}
