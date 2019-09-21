@@ -78,11 +78,11 @@ public class ActConsulta extends AppCompatActivity {
 		// bar.setBackgroundDrawable ( new ColorDrawable( Color.parseColor ( "#575a5e" ) ) );
 		//bar.setTitle ( "Consulte CNPJ" );
 		
-		startComponet ( );
+		startComponent ( );
 		lvCNPJ.setOnItemClickListener ( selecionarCnpj );
 	}
 	
-	public void startComponet ( ) {
+	public void startComponent ( ) {
 		
 		fltBtnPrint = findViewById ( R.id.fltBtnPrint );
 		edtCNPJ = findViewById ( R.id.edtCNPJ );
@@ -108,8 +108,8 @@ public class ActConsulta extends AppCompatActivity {
 				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
 					startPrint ( );
 				} else {
-					startMsg ( "Seu Android não suporta impressão !" );
-					startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
+					startMsg ( "Dispositivo incompatível com impressão!" );
+				//	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
 				}
 			}
 		} );
@@ -202,13 +202,21 @@ public class ActConsulta extends AppCompatActivity {
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_LONG ).show ( );
 	}
 	
+	private String beautifyCNPJ ( String doc ) {
+		doc = doc.replace ( ".", "" );
+		doc = doc.replace ( "/", "" );
+		doc = doc.replace ( "-", "" );
+		//startMsg ( String.format ( "%s", doc ) );
+		return doc;
+	}
+	
 	private void getCnpj ( ) {
 		
-		String cnpj = edtCNPJ.getText ( ).toString ( );
+		String cnpj = beautifyCNPJ ( edtCNPJ.getText ( ).toString ( ) );
 		
 		if ( cnpj.equals ( "" ) ) {
-			startMsg ( "Não é possivel fazer busca sem CNPJ ;-[" );
-			startMsg ( "Digite um CNPJ para consulta" );
+			startMsg ( "Não é possivel fazer busca sem um CNPJ!" );
+			startMsg ( "Por favor, digite um CNPJ para consulta." );
 			
 		} else {
 			
@@ -217,7 +225,7 @@ public class ActConsulta extends AppCompatActivity {
 				cnpjEmpRest.listCnpj ( cnpj.trim ( ) );
 				
 			} catch ( Exception err ) {
-				startMsg ( "Ocorreu erro na busca pelo CNPJ ." );
+				startMsg ( "Ocorreu erro na busca pelo CNPJ." );
 				
 				System.out.println ( "ERRO----------" + err );
 			}

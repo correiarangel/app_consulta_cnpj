@@ -27,37 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtCNPJ" />
 
-    <EditText
-        android:id="@+id/edtCNPJ"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:hint="@string/hide_cnpj"
-        android:inputType="number"
-        android:textAllCaps="false"
-        android:textColor="@color/bracoCor"
-        android:textColorHint="@color/bracoCor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fltBtnPrint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_print_24dp" />
-
     <ListView
         android:id="@+id/lvCNPJ"
         android:layout_width="match_parent"
@@ -80,5 +49,40 @@
         app:layout_constraintVertical_bias="1.0">
 
     </ListView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fltBtnPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_print_24dp" />
+
+    <com.vicmikhailau.maskededittext.MaskedEditText
+        android:id="@+id/edtCNPJ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="@string/hide_cnpj"
+        android:inputType="number"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/bracoCor"
+        android:textColorHint="@color/bracoCor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mask="##.###.###/####-##" />
+    <!-- Example: 65.655.130/0001-08 -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
