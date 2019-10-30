@@ -36,7 +36,7 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 	
 	public View getView ( int position, View convertView, ViewGroup parent ) {
 		CnpjEmpresa cnpj = lista.get ( position );
-				
+		
 		LayoutInflater inflater = ( LayoutInflater ) context.getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
 		View view = inflater.inflate ( R.layout.act_retorn_cnpj, null );
 		
@@ -54,14 +54,14 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		String cep = cnpj.getCep ( );
 		String cidade = cnpj.getMunicipio ( );
 		String uf = cnpj.getUf ( );
-		String email = cnpj.getEmail ( ) == null? "nulo" : cnpj.getEmail ( ) ;
+		String email = cnpj.getEmail ( );
 		String fone = cnpj.getTelefone ( );
 		String situacao = cnpj.getSituacao ( );
-		String situacaoEspecial = cnpj.getCapital_social ( ) == null? "nulo": cnpj.getCapital_social ( );
+		String dataSituacao = cnpj.getCapital_social ( );
 		String capitalSocial = cnpj.getData_situacao_especial ( );
-		String quadroSocios = cnpj.getQsa ( ) == null ? "nulo" : cnpj.getQsa ( );
-		String ultimaAtualização = cnpj.getUltima_atualizacao ( );
-		String status2 = cnpj.getStatus ( ) == null ? "nulo" : cnpj.getStatus ( );
+		String quadroSocios = cnpj.getQsa ( );
+		String ultimaAtualizacao = cnpj.getUltima_atualizacao ( );
+		String status2 = cnpj.getStatus ( );
 		//b = (a > 0) ? 1 : 2;
 		
 		TextView txtRazao = view.findViewById ( R.id.txtRazao );
@@ -80,19 +80,34 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		txtTipo.setText ( String.format ( "Tipo: %s", tipo ) );
 		
 		TextView txtAtividadePrincipal = view.findViewById ( R.id.txtAtividadePrincipal );
-		txtAtividadePrincipal.setText ( String.format ( "Atividade Principal: %s", atividadePrincipal ) );
-		
+		if ( atividadePrincipal.equals ( "" ) || ( atividadePrincipal == null ) || atividadePrincipal.equals ( "[]" ) ) {
+			txtAtividadePrincipal.setText("Atividade Principal: não informado");
+		} else {
+			txtAtividadePrincipal.setText ( String.format ( "Atividade Principal%s ", atividadePrincipal )
+					.replace ( "[{", "" )
+					.replace("text", "")
+					.replace("::", ":")
+					.replace(": :", ":")
+					.replace("code", " código")
+					.replace("}]","")
+					.replaceAll("\"", "")
+			);
+		}
 		TextView txtNaturezaJuridica = view.findViewById ( R.id.txtNaturezaJuridica );
 		txtNaturezaJuridica.setText ( String.format ( "Natureza Jurídica: %s", naturezaJuridica ) );
 		
 		TextView txtLongradouro = view.findViewById ( R.id.txtLongradouro );
-		txtLongradouro.setText ( String.format ( "End.: %s", logradouro ) );
+		txtLongradouro.setText ( String.format ( "Logradouro %s", logradouro ) );
 		
 		TextView txtNumero = view.findViewById ( R.id.txtNumero );
 		txtNumero.setText ( String.format ( "Número: %s", num ) );
 		
 		TextView txtComplemento = view.findViewById ( R.id.txtComplemento );
-		txtComplemento.setText ( String.format ( "Complemento: %s", complemento ) );
+		if ( complemento.equals ( "" ) || ( complemento == null ) || complemento.equals ( "[]" ) ) {
+			txtComplemento.setText ( "Complemento: não informado" );
+		} else {
+			txtComplemento.setText ( String.format ( "Complemento: %s", complemento ) );
+		}
 		
 		TextView txtBairro = view.findViewById ( R.id.txtBairro );
 		txtBairro.setText ( String.format ( "Data abetura: %s", bairro ) );
@@ -106,34 +121,48 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		TextView txtEstado = view.findViewById ( R.id.txtEstado );
 		txtEstado.setText ( String.format ( "Estado: %s", uf ) );
 		
-		if ( email != "nulo" ) {
-			TextView txtEmail = view.findViewById ( R.id.txtEmail );
+		TextView txtEmail = view.findViewById ( R.id.txtEmail );
+		if ( email.equals ( "" ) || ( email == null ) || email.equals ( "[]" ) ) {
+			txtEmail.setText ( "Email: não informado" );
+		} else {
 			txtEmail.setText ( String.format ( "E-mail: %s", email ) );
 		}
 		
 		TextView txtFone = view.findViewById ( R.id.txtFone );
 		txtFone.setText ( String.format ( "Fone: %s", fone ) );
 		
-		TextView txtSituação = view.findViewById ( R.id.txtSituação );
-		txtSituação.setText ( String.format ( "Situação: %s", situacao ) );
+		TextView txtSituacao = view.findViewById ( R.id.txtSituacao );
+		if ( situacao.equals ( "" ) || ( situacao == null ) || situacao.equals ( "[]" ) ) {
+			txtSituacao.setText ( "Situação: não informado" );
+		} else {
+			txtSituacao.setText ( String.format ( "Situação: %s", situacao ) );
+		}
 		
-		if(situacaoEspecial != "nulo") {
-			TextView txtDataSituacao = view.findViewById ( R.id.txtDataSituacao );
-			txtDataSituacao.setText ( String.format ( "Data Situação: %s", situacaoEspecial ) );
+		TextView txtDataSituacao = view.findViewById ( R.id.txtDataSituacao );
+		if ( dataSituacao.equals ( "" ) || ( dataSituacao == null ) || dataSituacao.equals ( "[]" ) ) {
+			txtDataSituacao.setText ( "Situacao: não informado" );
+		} else {
+			txtDataSituacao.setText ( String.format ( "Situacao: %s", dataSituacao ) );
 		}
 		
 		TextView txtCapitalSocial = view.findViewById ( R.id.txtCapitalSocial );
 		txtCapitalSocial.setText ( String.format ( "Capital Social: %s", capitalSocial ) );
 		
-		if(quadroSocios != "nulo" ) {
-			TextView txtQuadroSocios = view.findViewById ( R.id.txtQuadroSocios );
+		TextView txtQuadroSocios = view.findViewById ( R.id.txtQuadroSocios );
+		if ( quadroSocios.equals ( "" ) || ( quadroSocios == null ) || quadroSocios.equals ( "[]" ) ) {
+			txtQuadroSocios.setText ( "Quadro Sócios: não informado" );
+		} else {
 			txtQuadroSocios.setText ( String.format ( "Quadro Sócios: %s", quadroSocios ) );
 		}
 		
-		TextView ultimaAtualisacao = view.findViewById ( R.id.txtUltimaAtualisacao );
-		ultimaAtualisacao.setText ( String.format ( "Atualizado em: %s", ultimaAtualização ) );
+		TextView ultAtualizacao = view.findViewById ( R.id.txtUltimaAtualisacao );
+		if ( ultAtualizacao.equals ( "" ) || ( ultAtualizacao == null ) || ultAtualizacao.equals ( "[]" ) ) {
+			ultAtualizacao.setText ( "Atualizado em: não informado" );
+		} else {
+			ultAtualizacao.setText ( String.format ( "Atualizado em: %s", ultimaAtualizacao ).substring ( 0, 25 ) );
+		}
 		
-		if ( status2 != "nulo" )  {
+		if ( status2 != "nulo" ) {
 			TextView status = view.findViewById ( R.id.txtStatus );
 			status.setVisibility ( View.INVISIBLE );
 			status.setText ( String.format ( "Status: %s", status2 ) );

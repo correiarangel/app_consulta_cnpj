@@ -9,7 +9,7 @@
     android:paddingBottom="2dp">
 
     <TextView
-        android:id="@+id/txtSituação"
+        android:id="@+id/txtSituacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
@@ -134,8 +134,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark"
-        android:visibility="gone" />
+        android:textColor="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/txtFone"
@@ -151,8 +150,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark"
-        android:visibility="gone" />
+        android:textColor="@android:color/background_dark" />
+
 
     <TextView
         android:id="@+id/txtCapitalSocial"
@@ -168,8 +167,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark"
-        android:visibility="gone" />
+        android:textColor="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/txtUltimaAtualisacao"
@@ -184,7 +182,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark"
-        android:visibility="gone" />
+        android:textColor="@android:color/background_dark" />
 
 </LinearLayout>
