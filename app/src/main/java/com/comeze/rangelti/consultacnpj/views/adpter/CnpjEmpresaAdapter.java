@@ -141,4 +141,7 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		
 		return view;
 	}
+
+	public void onFinish() {
+	}
 }

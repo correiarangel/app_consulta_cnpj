@@ -1,7 +1,6 @@
 package com.comeze.rangelti.consultacnpj.views.custom;
 
-
-
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 import com.itextpdf.text.Document;
@@ -13,12 +12,15 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 
-public class PrintPDF {
+public class PrintPDF extends AppCompatActivity {
+    private Document doc = null;
 
     public PrintPDF() {
+
     }
 
-    public void geralPDF( CnpjEmpresa cnpjEmpresa ) throws Exception {
+    public void geralPDF(CnpjEmpresa cnpjEmpresa) throws Exception {
+        System.out.println("Click------------------");
         Document doc = null;
         OutputStream os = null;
 
@@ -27,7 +29,7 @@ public class PrintPDF {
             doc = new Document(PageSize.A4, 72, 72, 72, 72);
 
             //cria a stream de saída
-            os = new FileOutputStream("consultaCNPJ.pdf");
+            os = new FileOutputStream("CNPJ");
 
             //associa a stream de saída ao
             PdfWriter.getInstance(doc, os);
@@ -90,8 +92,8 @@ public class PrintPDF {
             Paragraph p25 = new Paragraph("Quadro de Socios :"+ cnpjEmpresa.getQsa());
             doc.add(p25);
 
-
-
+            System.out.println("DOC P3 ------------"+p3);
+            System.out.println("DOC------------"+doc);
         } finally {
             if (doc != null) {
                 //fechamento do documento
@@ -102,5 +104,10 @@ public class PrintPDF {
                 os.close();
             }
         }
+    }
+
+    public Document getDoc(){
+
+        return doc;
     }
 }
