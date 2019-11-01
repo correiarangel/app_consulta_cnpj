@@ -1,26 +1,23 @@
 package com.comeze.rangelti.consultacnpj.views;
 
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Canvas;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Vibrator;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintManager;
 
-import android.print.pdf.PrintedPdfDocument;
-import android.provider.DocumentsContract;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,37 +25,41 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-import androidx.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 import com.comeze.rangelti.consultacnpj.R;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
-import com.comeze.rangelti.consultacnpj.views.custom.PrintPDF;
+import com.comeze.rangelti.consultacnpj.views.custom.GerarPDF;
 import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-public class ActConsulta extends AppCompatActivity {
+public class ActConsulta extends AppCompatActivity implements View.OnClickListener {
+
+	private static final int PERMISSION_REQUEST_CODE = 200;
 
 	private EditText edtCNPJ;
 	private Button btnPesquisar;
-	private CnpjEmpresa cnpj;
+	private CnpjEmpresa empresa;
 	private List< CnpjEmpresa > cnpjEmpresas;
 	private FloatingActionButton fltBtnPrint;
-	private PrintDocumentAdapter pda;
 	private ListView lvCNPJ;
+	GerarPDF gerarPDF ;
 
 	private CnpjEmpRest cnpjEmpRest;
 	private CnpjEmpresaAdapter empresaAdapter;
@@ -67,11 +68,12 @@ public class ActConsulta extends AppCompatActivity {
 
 		public void onItemClick ( AdapterView< ? > arg0, View arg1, int pos, long id ) {
 
-			cnpj = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( pos );
-			startMsg("PDF:"+cnpj);
-			PrintPDF printPDF = new PrintPDF ();
+			empresa = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( pos );
+			//method decision
+			alertPrint( empresa );
+
 			try {
-				printPDF.geralPDF (cnpj);
+
 
 			} catch ( Exception e ) {
 				e.printStackTrace ( );
@@ -85,13 +87,18 @@ public class ActConsulta extends AppCompatActivity {
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_consulta );
+/*
+		ActionBar bar = getSupportActionBar ( );
+		bar.setBackgroundDrawable ( new ColorDrawable( Color.parseColor ( "#575a5e" ) ) );
+		bar.setTitle ( "Consulte CNPJ" );
 
-		//ActionBar bar = getSupportActionBar ( );
-		// bar.setBackgroundDrawable ( new ColorDrawable( Color.parseColor ( "#575a5e" ) ) );
-		//bar.setTitle ( "Consulte CNPJ" );
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+*/
 		startComponent ( );
 		lvCNPJ.setOnItemClickListener ( selecionarCnpj );
+        //call method read write
+		testePermissoes();
 	}
 
 
@@ -108,29 +115,9 @@ public class ActConsulta extends AppCompatActivity {
 
 		cnpjEmpRest = new CnpjEmpRest ( this, lvCNPJ );
 
-		btnPesquisar.setOnClickListener ( new View.OnClickListener ( ) {
-			@Override
-			public void onClick ( View v ) {
-				startVibrat ( 90 );
-				getCnpj ( );
-			}
-		} );
+		btnPesquisar.setOnClickListener(this);
+		fltBtnPrint.setOnClickListener(this);
 
-		fltBtnPrint.setOnClickListener ( new View.OnClickListener ( ) {
-			@Override
-			public void onClick ( View v ) {
-
-				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
-					startMsg ( lvCNPJ.toString() );
-					createPdf(lvCNPJ);
-
-
-				} else {
-					startMsg ( "Dispositivo incompatível com impressão!" );
-					//	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
-				}
-			}
-		} );
 	}
 	//metudo que sobreescreve fontes coistomiza fonte
 	@Override
@@ -146,8 +133,12 @@ public class ActConsulta extends AppCompatActivity {
 	}
 
 	//msg
-	private void startMsg ( String msg ) {
-		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_LONG ).show ( );
+	public void startMsg(String message) {
+
+		int duration = Toast.LENGTH_LONG;
+		Toast toast  = Toast.makeText(getApplicationContext(), message, duration);
+		toast.show();
+
 	}
 
 	//trata string
@@ -205,53 +196,149 @@ public class ActConsulta extends AppCompatActivity {
 		return super.onOptionsItemSelected ( item );
 	}
 
-	//metudo gera pdf
-	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
-	private void createPdf(ListView listView){
-		// criando o documento novo
-
-		PdfDocument document = new PdfDocument();
-
-		PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
-
-		PdfDocument.Page page = document.startPage(pageInfo);
-		Canvas canvas = page.getCanvas();
-		Paint paint = new Paint();
-		paint.setColor(Color.RED);
-		canvas.drawCircle(50, 50, 30, paint);
-		paint.setColor(Color.BLACK);
-		canvas.drawText(listView.toString(), 80, 50, paint);
 
 
-		document.finishPage(page);
 
-		//Criando uma segunda página
-		pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
-		page = document.startPage(pageInfo);
-		canvas = page.getCanvas();
-		paint = new Paint();
-		paint.setColor(Color.BLUE);
-		canvas.drawCircle(100, 100, 100, paint);
-		document.finishPage(page);
+    // metudos verificam permissão de leitura e gravação em disco
+	// Em tempo de execução só funcionou com  checkPermission
+	// e requestPermissionAndContinue
+	private boolean checkPermission() {
 
-		String directory_path = Environment.getExternalStorageDirectory().getPath() + "/";
-		File file = new File(directory_path);
-		if (!file.exists()) {
-			file.mkdirs();
-		}
-
-		String targetPdf = directory_path+"ColsultaCNPJ.pdf";
-		File filePath = new File(targetPdf);
-		try {
-			document.writeTo(new FileOutputStream(filePath));
-			startMsg("Salvo com sucesso");
-		} catch (IOException e) {
-			Log.e("main", "error "+e.toString());
-			startMsg( "Não funcionou: " + e.toString());
-		}
-
-		document.close();
+		return ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+				&& ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+				;
 	}
 
+	private void requestPermissionAndContinue() {
+		if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+				&& ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, WRITE_EXTERNAL_STORAGE)
+					&& ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)) {
+				AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+				alertBuilder.setCancelable(true);
+				alertBuilder.setTitle(getString(R.string.permission_necessary));
+				alertBuilder.setMessage(R.string.storage_permission_is_encessary_to_wrote_event);
+				alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+					public void onClick(DialogInterface dialog, int which) {
+						ActivityCompat.requestPermissions(ActConsulta.this, new String[]{WRITE_EXTERNAL_STORAGE
+								, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+					}
+				});
+				AlertDialog alert = alertBuilder.create();
+				alert.show();
+				Log.e("", "permission denied, show dialog");
+			} else {
+				ActivityCompat.requestPermissions(ActConsulta.this, new String[]{WRITE_EXTERNAL_STORAGE,
+						READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+			}
+		} else {
+			openActivity();
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+		if (requestCode == PERMISSION_REQUEST_CODE) {
+			if (permissions.length > 0 && grantResults.length > 0) {
+
+				boolean flag = true;
+				for (int i = 0; i < grantResults.length; i++) {
+					if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+						flag = false;
+					}
+				}
+				if (flag) {
+					openActivity();
+				} else {
+					finish();
+				}
+
+			} else {
+				finish();
+			}
+		} else {
+			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
+	}
+
+	private void openActivity() {
+		//add your further process after giving permission or to download images from remote server.
+	}
+
+    //Call method permissão read write in disk
+	private void testePermissoes(){
+		if (!checkPermission()) {
+			openActivity();
+		} else {
+			if (checkPermission()) {
+				requestPermissionAndContinue();
+			} else {
+				openActivity();
+			}
+		}
+	}
+
+	@Override
+	public void onClick ( View v ) {
+		if ( v.getId ( ) == R.id.btnPesquisar )
+		{
+			startVibrat ( 90 );
+			getCnpj ( );
+
+		} else if ( v.getId ( ) == R.id.fltBtnPrint )
+		{
+			empresa = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( 0 );
+
+			if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
+
+				startVibrat ( 90 );
+				gerarPDF = new GerarPDF();
+				gerarPDF.createPdf(empresa);
+
+			} else {
+				startMsg ( "Dispositivo incompatível com impressão!" );
+				//	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
+			}
+		}
+	}
+
+	// dialog
+	private void alertPrint (final CnpjEmpresa emp ) {
+
+		AlertDialog.Builder alert = new AlertDialog.Builder ( this );
+		alert.setIcon ( R.drawable.ic_print_orege_24dp );
+		alert.setTitle ( "Imprimir Consulta " );
+		alert.setMessage ( "Deseja gerar um arquivo em pdf com resultado da sua consulta ?" );
+
+
+		alert.setPositiveButton ( "Sim", new DialogInterface.OnClickListener ( ) {
+			@Override
+			public void onClick ( DialogInterface dialog, int which )
+			{
+				gerarPDF = new GerarPDF();
+				gerarPDF.createPdf(emp);
+			}
+		} );
+
+		alert.setNegativeButton ( "Não", new DialogInterface.OnClickListener ( ) {
+			@Override
+			public void onClick ( DialogInterface dialog, int which ) {
+
+			}
+		} );
+		AlertDialog dialog = alert.create ( );
+		dialog.show ( );
+	}
+
+	public void setMsg(String s){
+		if ( s.equals("OK")) {
+			startMsg("Arquivo gerado com sucesso !");
+		}else {
+			startMsg("Falha na geração do arquivo:");
+		}
+	}
 
 }
