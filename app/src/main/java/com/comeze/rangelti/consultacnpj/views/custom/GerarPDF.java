@@ -1,13 +1,12 @@
 package com.comeze.rangelti.consultacnpj.views.custom;
 
-import android.app.Activity;
-import android.content.Context;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +17,11 @@ import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 
 public class GerarPDF extends AppCompatActivity {
@@ -41,64 +44,76 @@ public class GerarPDF extends AppCompatActivity {
         PdfDocument.Page page = document.startPage(pageInfo);
 
         // cria pagina
-
-
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
 
-        Date dataAtual = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat ( "dd/MM/yyyy" );
+        Calendar cal = Calendar.getInstance ( );
+        Date data_atual = cal.getTime ( );
 
-        canvas.drawText("[ Cunsulta de CNPJ Retornada Data:"+dataAtual +"]", 20, 30, paint);
-        canvas.drawText("-------------------------------------------------------------------------", 19, 40, paint);
-        canvas.drawText("CNPJ"+empresa.getCnpj() ,20, 60, paint);
-        canvas.drawText("Razão Social :"+empresa.getNome(), 20, 80, paint);
+        String dataAtual = dateFormat.format ( data_atual );
 
-        canvas.drawText("Nome Fantasia:"+empresa.getFantasia(), 20, 100, paint);
-        canvas.drawText("Status :"+empresa.getStatus(), 20, 120, paint);
-        canvas.drawText("Ultima Atualização :"+ empresa.getUltima_atualizacao(), 20, 140, paint);
-        canvas.drawText("Tipo :"+empresa.getTipo(), 20, 160, paint);
-        canvas.drawText("Data Abetura :"+ empresa.getAbertura(), 20, 180, paint);
-        canvas.drawText("Atividade principal:\n"+empresa.getAtividade_principal(), 20, 200, paint);
-        canvas.drawText(":Natureza Juridica :\n"+ empresa.getNatureza_juridica(), 20, 220, paint);
-        canvas.drawText("Longradouro:"+ empresa.getLogradouro(),20, 240, paint);
-        canvas.drawText("Numero :"+ empresa.getNumero(), 20, 260, paint);
-        canvas.drawText("Complemento :"+ empresa.getComplemento(), 20, 280, paint);
-        canvas.drawText("Bairro :"+ empresa.getBairro(), 20, 300, paint);
-        canvas.drawText("CEP :"+ empresa.getCep(), 20, 320, paint);
-        canvas.drawText("Municipio :"+ empresa.getMunicipio(), 20,340 , paint);
-        canvas.drawText("Estado :"+ empresa.getUf(), 20, 360, paint);
-        canvas.drawText("Porte :"+ empresa.getPorte(), 20, 380, paint);
-        canvas.drawText("Email :"+ empresa.getEmail(), 20,400, paint);
-        canvas.drawText("Fone :"+ empresa.getTelefone(), 20, 420, paint);
-        canvas.drawText("Situação :"+ empresa.getSituacao(), 20, 440, paint);
-        canvas.drawText("Motivo Situação:"+ empresa.getMotivo_situacao(), 20, 460, paint);
-        canvas.drawText("Situação Especial :"+ empresa.getSituacao_especial(), 20, 480, paint);
-        canvas.drawText("Capital Social :"+ empresa.getCapital_social(), 20, 500, paint);
-        canvas.drawText("Quadro de Socios :"+ empresa.getQsa(), 20, 520, paint);
+
+        canvas.drawText(" Cunsulta de CNPJ Data:"+dataAtual, 30, 60, paint);
+
+        canvas.drawLine(30,65,250,65,paint);//line
+
+        canvas.drawText("CNPJ"+empresa.getCnpj() ,30, 80, paint);
+        canvas.drawText("Razão Social :"+empresa.getNome(), 30, 95, paint);
+        canvas.drawText("Nome Fantasia:"+empresa.getFantasia(), 30,110,paint);
+        //canvas.drawText("Nome Fantasia:"+empresa.getFantasia(), 30, 100, paint);
+        canvas.drawText("Status :"+empresa.getStatus(), 30, 125, paint);
+        canvas.drawText("Ultima Atualização :"+ empresa.getUltima_atualizacao(), 30, 140, paint);
+        canvas.drawText("Tipo :"+empresa.getTipo(), 30, 155, paint);
+        canvas.drawText("Data Abetura :"+ empresa.getAbertura(), 30, 170, paint);
+        canvas.drawText("Atividade principal:", 30 ,185,paint);
+        canvas.drawText(""+empresa.getAtividade_principal(), 30, 200,paint);
+
+        canvas.drawText("Natureza Juridica :", 30, 215,paint);
+        canvas.drawText( ""+empresa.getNatureza_juridica(), 30, 230,paint);
+        //canvas.drawText("Natureza Juridica :"+ empresa.getNatureza_juridica(), 30, 220, paint);
+        canvas.drawText("Longradouro:"+ empresa.getLogradouro(),30, 245, paint);
+        canvas.drawText("Numero :"+ empresa.getNumero(), 30, 260, paint);
+        canvas.drawText("Complemento :"+ empresa.getComplemento(), 30, 275, paint);
+        canvas.drawText("Bairro :"+ empresa.getBairro(), 30, 290, paint);
+        canvas.drawText("CEP :"+ empresa.getCep(), 30, 305, paint);
+        canvas.drawText("Municipio :"+ empresa.getMunicipio(), 30,320 , paint);
+        canvas.drawText("Estado :"+ empresa.getUf(), 30, 335, paint);
+        canvas.drawText("Porte :"+ empresa.getPorte(), 30, 350, paint);
+        canvas.drawText("Email :"+ empresa.getEmail(), 30,365, paint);
+        canvas.drawText("Fone :"+ empresa.getTelefone(), 30, 380, paint);
+        canvas.drawText("Situação :"+ empresa.getSituacao(), 30, 395, paint);
+        canvas.drawText("Motivo Situação:"+ empresa.getMotivo_situacao(), 30, 410, paint);
+        canvas.drawText("Situação Especial :"+ empresa.getSituacao_especial(), 30, 425, paint);
+        canvas.drawText("Capital Social :"+ empresa.getCapital_social(), 30, 440, paint);
+        canvas.drawText("Quadro de Socios :"+ empresa.getQsa(), 30, 455, paint);
+
+        canvas.drawLine(30,460,250,460,paint);//line
 
 
         document.finishPage(page);
 
-
-
+        //local do arquivo gerado
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/";
         File file = new File(directory_path);
         if (!file.exists()) {
             file.mkdirs();
         }
 
-        String targetPdf = directory_path+"CNPJ.pdf";
+        Random gerador = new Random();
+        int n_arq = gerador.nextInt(50);
+        String targetPdf = directory_path+"ConsultaCNPJ:"+n_arq+".pdf";
         File filePath = new File(targetPdf);
         try {
 
             document.writeTo(new FileOutputStream(filePath));
-           // actConsulta.setMsg("OK");
+            System.setProperty("MSG","OK");
 
         } catch (IOException e) {
             Log.e("main", "error "+e.toString());
 
+            System.setProperty("MSG","ERROR");
 
-            //actConsulta.setMsg("ERROR");
         }
 
         document.close();

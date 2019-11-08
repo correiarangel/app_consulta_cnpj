@@ -2,13 +2,11 @@ package com.comeze.rangelti.consultacnpj.views;
 
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -22,11 +20,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -58,22 +56,21 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 	private CnpjEmpresa empresa;
 	private List< CnpjEmpresa > cnpjEmpresas;
 	private FloatingActionButton fltBtnPrint;
+	private FloatingActionButton fltBtnInfo;
 	private ListView lvCNPJ;
 	GerarPDF gerarPDF ;
 
 	private CnpjEmpRest cnpjEmpRest;
 	private CnpjEmpresaAdapter empresaAdapter;
-
+    //private ActionBar bar ;
 	private AdapterView.OnItemClickListener selecionarCnpj = new AdapterView.OnItemClickListener ( ) {
 
 		public void onItemClick ( AdapterView< ? > arg0, View arg1, int pos, long id ) {
 
-			empresa = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( pos );
-			//method decision
-			alertPrint( empresa );
-
 			try {
-
+				empresa = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( pos );
+				//method decision
+				alertPrint( empresa );
 
 			} catch ( Exception e ) {
 				e.printStackTrace ( );
@@ -83,27 +80,28 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 
 	};
 
+
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_consulta );
-/*
-		ActionBar bar = getSupportActionBar ( );
-		bar.setBackgroundDrawable ( new ColorDrawable( Color.parseColor ( "#575a5e" ) ) );
-		bar.setTitle ( "Consulte CNPJ" );
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-*/
+		//bar = getSupportActionBar( );
+		//bar.setBackgroundDrawable ( new ColorDrawable( Color.parseColor ( "#ec4e20" ) ) );
+		//bar.setTitle ( "Cunsulte CNPJ" );
+
 		startComponent ( );
 		lvCNPJ.setOnItemClickListener ( selecionarCnpj );
         //call method read write
 		testePermissoes();
+
+		System.clearProperty("MSG");
 	}
 
 
 	public void startComponent ( ) {
 
+		fltBtnInfo = findViewById(R.id.fltBtnInfo);
 		fltBtnPrint = findViewById ( R.id.fltBtnPrint );
 		edtCNPJ = findViewById ( R.id.edtCNPJ );
 		btnPesquisar = findViewById ( R.id.btnPesquisar );
@@ -117,6 +115,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 
 		btnPesquisar.setOnClickListener(this);
 		fltBtnPrint.setOnClickListener(this);
+		fltBtnInfo.setOnClickListener(this);
 
 	}
 	//metudo que sobreescreve fontes coistomiza fonte
@@ -189,7 +188,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 		int id = item.getItemId ( );
 
 		//noinspection SimplifiableIfStatement
-		if ( id == R.id.action_settings ) {
+		if ( id == R.id.menu_info ) {
 			return true;
 		}
 
@@ -297,11 +296,18 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 				startVibrat ( 90 );
 				gerarPDF = new GerarPDF();
 				gerarPDF.createPdf(empresa);
+				setMsg();
 
 			} else {
 				startMsg ( "Dispositivo incompatível com impressão!" );
 				//	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
 			}
+		} else if (v.getId( ) == R.id.fltBtnInfo)
+		{
+
+			startVibrat ( 90 );
+			Intent it = new Intent( this,ActInfo.class );
+			startActivity( it );
 		}
 	}
 
@@ -333,12 +339,20 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 		dialog.show ( );
 	}
 
-	public void setMsg(String s){
+	public void setMsg(){
+		String s = System.getProperty("MSG");
 		if ( s.equals("OK")) {
-			startMsg("Arquivo gerado com sucesso !");
+			startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
+
 		}else {
 			startMsg("Falha na geração do arquivo:");
 		}
 	}
+
+	private void clearComponet(){
+		edtCNPJ.setText("");
+		System.clearProperty("MSG");
+	}
+
 
 }
