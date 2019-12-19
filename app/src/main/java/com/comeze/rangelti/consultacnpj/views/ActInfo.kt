@@ -1,20 +1,30 @@
 package com.comeze.rangelti.consultacnpj.views
 
+import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.comeze.rangelti.consultacnpj.R
+import kotlinx.android.synthetic.main.act_info.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
+
 class ActInfo : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_info)
         supportActionBar!!.hide()
+
+       flotBtnSair.setOnClickListener {
+           finish()
+        }
+
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -34,5 +44,9 @@ class ActInfo : AppCompatActivity() {
         intent.data = Uri.parse(url)
 
         startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 }

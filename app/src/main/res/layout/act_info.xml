@@ -19,7 +19,6 @@
         tools:layout_editor_absoluteX="25dp">
 
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -181,6 +180,24 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorFroralWhite" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/flotBtnSair"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="1dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>
