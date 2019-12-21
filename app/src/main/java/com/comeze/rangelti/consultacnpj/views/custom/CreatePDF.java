@@ -107,8 +107,16 @@ public class CreatePDF extends AppCompatActivity {
             p.add("Situação :"+ empresa.getSituacao()+"\n");
             p.add("Motivo Situação:"+ empresa.getMotivo_situacao()+"\n");
             p.add("Situação Especial :"+ empresa.getSituacao_especial()+"\n");
-            p.add("Capital Social :"+ empresa.getCapital_social()+"\n");
-            p.add("Quadro de Socios :"+ empresa.getQsa()+"\n");
+
+            p.add("Capital Social :"+ empresa.getQsa()+"\n");
+
+            p.add("Quadro de Socios :"+ empresa.getCapital_social()+"\n");
+
+            p.add("\n\n");
+            p.add("Desenvolvido por : Marcos F C Rangel e Wendreo Fernandes\n");
+            p.add("Contato:\n");
+            p.add("E-mail: correiarangel@bol.com.br ,Marcos F C Rangel\n");
+            p.add("E-mail: wendreolf@gmail.com ,Wendreo Fernandes");
 
             doc.add( p );
 
