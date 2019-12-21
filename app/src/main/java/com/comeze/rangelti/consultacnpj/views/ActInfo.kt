@@ -1,11 +1,11 @@
 package com.comeze.rangelti.consultacnpj.views
 
-import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.comeze.rangelti.consultacnpj.R
@@ -21,7 +21,10 @@ class ActInfo : AppCompatActivity() {
         setContentView(R.layout.act_info)
         supportActionBar!!.hide()
 
-       flotBtnSair.setOnClickListener {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        flotBtnSair.setOnClickListener {
+            startVibrat(90)
            finish()
         }
 
@@ -48,5 +51,11 @@ class ActInfo : AppCompatActivity() {
 
     override fun onBackPressed() {
         finish()
+    }
+
+    //Metudo que ativa vibração
+    fun startVibrat(tempo: Long) { // cria um obj atvib que recebe seu valor de context
+        val atvib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        atvib.vibrate(tempo)
     }
 }

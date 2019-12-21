@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtRazao"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtFantasia"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtCnpj"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtDataAbetura"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtTipo"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtAtividadePrincipal"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtNaturezaJuridica"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtLongradouro"
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtNumero"
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtComplemento"
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtCep"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtBairro"
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtMunicipio"
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtEstado"
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtEmail"
@@ -134,7 +134,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtFone"
@@ -142,7 +142,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtDataSituacao"
@@ -150,16 +150,16 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
 
     <TextView
-        android:id="@+id/txtCapitalSocial"
+        android:id="@+id/txtCapital_Social"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtQuadroSocios"
@@ -167,14 +167,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtUltimaAtualisacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
     <TextView
         android:id="@+id/txtStatus"
@@ -182,6 +182,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:text="TextView"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@color/colorPaleSilver" />
 
 </LinearLayout>

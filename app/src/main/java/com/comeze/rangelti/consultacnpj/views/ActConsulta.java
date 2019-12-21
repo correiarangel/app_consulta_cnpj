@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +14,6 @@ import android.os.Vibrator;
 
 
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -58,6 +57,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     private List< CnpjEmpresa > cnpjEmpresas;
     private FloatingActionButton fltBtnPrint;
     private FloatingActionButton fltBtnInfo;
+    private FloatingActionButton fltBtnSair;
     private ListView lvCNPJ;
     private CreatePDF createPDF;
     private CnpjEmpRest cnpjEmpRest;
@@ -75,20 +75,15 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             } catch ( Exception e ) {
                 e.printStackTrace ( );
             }
-
         }
-
     };
-
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.act_consulta );
 
-        //bar = getSupportActionBar( );
-        //bar.setBackgroundDrawable ( new ColorDrawable( Color.parseColor ( "#ec4e20" ) ) );
-        //bar.setTitle ( "Cunsulte CNPJ" );
+        setRequestedOrientation ( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );  //Trava a rotaçãø da tela
 
         startComponent ( );
         lvCNPJ.setOnItemClickListener ( selecionarCnpj );
@@ -98,39 +93,41 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         System.clearProperty("MSG");
     }
 
-
     public void startComponent ( ) {
 
         fltBtnInfo = findViewById(R.id.fltBtnInfo);
         fltBtnPrint = findViewById ( R.id.fltBtnPrint );
+        fltBtnSair = findViewById( R.id.fltBtnSair);
         edtCNPJ = findViewById ( R.id.edtCNPJ );
         btnPesquisar = findViewById ( R.id.btnPesquisar );
         lvCNPJ = findViewById ( R.id.lvCNPJ );
-
-        cnpjEmpresas = new ArrayList< CnpjEmpresa > ( );
-        empresaAdapter = new CnpjEmpresaAdapter ( this, cnpjEmpresas );
-        lvCNPJ.setAdapter ( empresaAdapter );
+        //empresaAdapter e iniciado em clearComponet()
+        clearComponet();
 
         cnpjEmpRest = new CnpjEmpRest ( this, lvCNPJ );
 
-        btnPesquisar.setOnClickListener(this);
-        fltBtnPrint.setOnClickListener(this);
-        fltBtnInfo.setOnClickListener(this);
-
+        btnPesquisar.setOnClickListener( this );
+        fltBtnPrint.setOnClickListener( this );
+        fltBtnInfo.setOnClickListener( this );
+        fltBtnSair.setOnClickListener( this );
     }
     //metudo que sobreescreve fontes coistomiza fonte
     @Override
     protected void attachBaseContext ( Context newBase ) {
         super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
     }
-
+    @Override
+    public void onBackPressed()
+    {
+      startMsg("Saindo...");
+      finish();
+    }
     //Metudo que ativa vibração
-    private void startVibrat ( long tempo ) {
+    public void startVibrat ( long tempo ) {
         // cria um obj atvib que recebe seu valor de context
         Vibrator atvib = ( Vibrator ) getSystemService ( Context.VIBRATOR_SERVICE );
         atvib.vibrate ( tempo );
     }
-
     //msg
     public void startMsg(String message) {
 
@@ -148,7 +145,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         //startMsg ( String.format ( "%s", doc ) );
         return doc;
     }
-
     //captura cnpj e envia como parametro
     // para cnpjEmpRest
     private void getCnpj ( ) {
@@ -158,49 +154,20 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         if ( cnpj.equals ( "" ) ) {
             startMsg ( "Não é possivel fazer busca sem um CNPJ!" );
             startMsg ( "Por favor, digite um CNPJ para consulta." );
-
         } else {
 
             try {
-
                 cnpjEmpRest.listCnpj ( cnpj.trim ( ) );
-
             } catch ( Exception err ) {
                 startMsg ( "Ocorreu erro ao busca  CNPJ !..." );
                 System.out.println ( "ERRO----------" + err );
             }
         }
     }
-
-    //Menu ------//
-    @Override
-    public boolean onCreateOptionsMenu ( Menu menu ) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater ( ).inflate ( R.menu.menu_consulta, menu );
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected ( MenuItem item ) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId ( );
-
-        //noinspection SimplifiableIfStatement
-        if ( id == R.id.menu_info ) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected ( item );
-    }
-
-
-
-
-    // metudos verificam permissão de leitura e gravação em disco
-    // Em tempo de execução só funcionou com  checkPermission
-    // e requestPermissionAndContinue
+    /* Metudos verificam permissão de leitura e gravação em disco
+     * Em tempo de execução só funcionou com  checkPermission
+     * e requestPermissionAndContinue
+     */
     private boolean checkPermission() {
 
         return ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
@@ -264,9 +231,9 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     }
 
     private void openActivity() {
-        //add your further process after giving permission or to download images from remote server.
+        //add your further process after giving permission or to
+        // download images from remote server.
     }
-
     //Call method permissão read write in disk
     private void testePermissoes(){
         if (!checkPermission()) {
@@ -279,7 +246,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
-
+    // FIM  Metudos verificam permissão
     @Override
     public void onClick ( View v ) {
         if ( v.getId ( ) == R.id.btnPesquisar )
@@ -287,45 +254,53 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             startVibrat ( 90 );
             getCnpj ( );
             hideKeyboard( v );
-        } else if ( v.getId ( ) == R.id.fltBtnPrint )
-        {
-            empresa = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( 0 );
 
-            if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
+        } else if ( v.getId ( ) == R.id.fltBtnPrint ) {
 
-                startVibrat ( 90 );
-                createPDF = new CreatePDF( empresa );
+            startVibrat ( 90 );
 
-                try {
+            int quant_Pos_list =  lvCNPJ.getAdapter().getCount();
+            if ( quant_Pos_list >=1 )
+            {
+                empresa = ( CnpjEmpresa ) cnpjEmpRest.getPla ( ).getItem ( 0 );
 
-                    createPDF.gerar();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                setMsg();
+                    createPDF = new CreatePDF(empresa);
 
-            } else {
-                startMsg ( "Dispositivo incompatível com impressão!" );
-                	startMsg ( "Seu aparelho possui vesão inferior a KITKAT" );
-            }
+                    try {
+                        createPDF.gerar();
+                        clearComponet();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    setMsg();
+                } else {
+                    startMsg("Dispositivo incompatível com impressão!");
+                    startMsg("Seu aparelho possui vesão inferior a KITKAT");
+                }//if verssao
+            }else {
+                startMsg("Não há dados de consulta para gerar arquivo !");
+            }//if empresa
         } else if (v.getId( ) == R.id.fltBtnInfo)
         {
-
             startVibrat ( 90 );
             Intent it = new Intent( this,ActInfo.class );
             startActivity( it );
+        }else if (v.getId( ) == R.id.fltBtnSair)
+        {
+            startVibrat ( 90 );
+            finish();
         }
-    }
 
+    }
     // dialog
     private void alertPrint (final CnpjEmpresa emp ) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder ( this );
-        alert.setIcon ( R.drawable.ic_print_orege_24dp );
-        alert.setTitle ( "Imprimir Consulta " );
+        alert.setIcon ( R.drawable.ic_print_orege_24dp);
+        alert.setTitle ( "Imprimir Consulta em arquivo" );
         alert.setMessage ( "Deseja gerar um arquivo em pdf com resultado da sua consulta ?" );
-
 
         alert.setPositiveButton ( "Sim", new DialogInterface.OnClickListener ( ) {
             @Override
@@ -333,7 +308,10 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             {
                 createPDF = new CreatePDF( emp );
                 try {
+
                     createPDF.gerar();
+                    clearComponet();
+                    setMsg();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -342,15 +320,13 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 
         alert.setNegativeButton ( "Não", new DialogInterface.OnClickListener ( ) {
             @Override
-            public void onClick ( DialogInterface dialog, int which ) {
-
-            }
+            public void onClick ( DialogInterface dialog, int which ) { }
         } );
         AlertDialog dialog = alert.create ( );
         dialog.show ( );
     }
 
-    public void setMsg(){
+    public void setMsg() {
         String s = System.getProperty("MSG");
         if ( s.equals("OK")) {
             startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
@@ -360,15 +336,16 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    private void clearComponet(){
+    private void clearComponet()
+    {
         edtCNPJ.setText("");
-        System.clearProperty("MSG");
+        cnpjEmpresas = new ArrayList< CnpjEmpresa > ( );
+        empresaAdapter = new CnpjEmpresaAdapter ( this, cnpjEmpresas );
+        lvCNPJ.setAdapter ( empresaAdapter );
     }
-
     //oculta teclado
     public void hideKeyboard( View v )
     {
-        //View v = new View( getApplicationContext() );
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }

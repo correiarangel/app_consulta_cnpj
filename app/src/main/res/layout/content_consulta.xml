@@ -44,14 +44,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorPrimary"
         android:scrollbarThumbHorizontal="@color/colorCadetGrey"
         android:scrollbarThumbVertical="@color/colorCadetGrey"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPesquisar" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPesquisar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fltBtnPrint"
@@ -65,6 +67,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_pdf" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fltBtnSair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/fltBtnInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_close"
+        android:focusable="true" />
+
     <com.vicmikhailau.maskededittext.MaskedEditText
         android:id="@+id/edtCNPJ"
         android:layout_width="0dp"
@@ -76,7 +90,7 @@
         android:hint="@string/hide_cnpj"
         android:inputType="number"
         android:textAllCaps="false"
-        android:textColor="@color/bracoCor"
+        android:textColor="@color/colorPaleSilver"
         android:textColorHint="@color/bracoCor"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

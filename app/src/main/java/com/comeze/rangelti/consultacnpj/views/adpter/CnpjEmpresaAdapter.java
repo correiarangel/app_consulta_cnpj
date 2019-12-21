@@ -42,7 +42,7 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		
 		String razaSocial = cnpj.getNome ( );
 		String nomeFantasia = cnpj.getFantasia ( );
-		String documento = cnpj.getCnpj ( );
+		String documentoCnpj = cnpj.getCnpj ( );
 		String dataAbertura = cnpj.getAbertura ( );
 		String tipo = cnpj.getTipo ( );
 		String atividadePrincipal = cnpj.getAtividade_principal ( );
@@ -57,9 +57,9 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		String email = cnpj.getEmail ( );
 		String fone = cnpj.getTelefone ( );
 		String situacao = cnpj.getSituacao ( );
-		String dataSituacao = cnpj.getCapital_social ( );
-		String capitalSocial = cnpj.getData_situacao_especial ( );
-		String quadroSocios = cnpj.getQsa ( );
+		String dataSituacao = cnpj.getData_situacao_especial();
+		String capitalSocial = cnpj.getQsa ( );
+		String quadroSocios = cnpj.getCapital_social ( );
 		String ultimaAtualizacao = cnpj.getUltima_atualizacao ( );
 		String status2 = cnpj.getStatus ( );
 		//b = (a > 0) ? 1 : 2;
@@ -71,7 +71,7 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		txtFantasia.setText ( String.format ( "Nome Fantasia: %s", nomeFantasia ) );
 		
 		TextView txtCnpj = view.findViewById ( R.id.txtCnpj );
-		txtCnpj.setText ( String.format ( "CNPJ: %s", documento ) );
+		txtCnpj.setText ( String.format ( "CNPJ: %s", documentoCnpj ) );
 		
 		TextView txtDataAbetura = view.findViewById ( R.id.txtDataAbetura );
 		txtDataAbetura.setText ( String.format ( "Data Abertura: %s", dataAbertura ) );
@@ -129,8 +129,12 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 		}
 		
 		TextView txtFone = view.findViewById ( R.id.txtFone );
-		txtFone.setText ( String.format ( "Fone: %s", fone ) );
-		
+		if ( fone.equals ( "" ) || ( fone == null ) || fone.equals ( "[]" ) ) {
+			txtFone.setText ( "Fone: não informado" );
+		} else {
+			txtFone.setText ( String.format ( "Fone: %s", fone ) );
+		}
+
 		TextView txtSituacao = view.findViewById ( R.id.txtSituacao );
 		if ( situacao.equals ( "" ) || ( situacao == null ) || situacao.equals ( "[]" ) ) {
 			txtSituacao.setText ( "Situação: não informado" );
@@ -145,9 +149,13 @@ public class CnpjEmpresaAdapter extends BaseAdapter {
 			txtDataSituacao.setText ( String.format ( "Situacao: %s", dataSituacao ) );
 		}
 		
-		TextView txtCapitalSocial = view.findViewById ( R.id.txtCapitalSocial );
-		txtCapitalSocial.setText ( String.format ( "Capital Social: %s", capitalSocial ) );
-		
+		TextView txtCapitalSocial = view.findViewById ( R.id.txtCapital_Social );
+		if ( capitalSocial.equals ( "" ) || ( capitalSocial == null ) || capitalSocial.equals ( "[]" )){
+			txtCapitalSocial.setText("Capital Social:não informado");
+		}else {
+			txtCapitalSocial.setText(String.format("Capital Social: %s", capitalSocial));
+		}
+
 		TextView txtQuadroSocios = view.findViewById ( R.id.txtQuadroSocios );
 		if ( quadroSocios.equals ( "" ) || ( quadroSocios == null ) || quadroSocios.equals ( "[]" ) ) {
 			txtQuadroSocios.setText ( "Quadro Sócios: não informado" );

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#575a5e</color>
+    <color name="colorPrimary">#575A5E</color>
     <color name="colorPrimaryDark">#1B2021</color>
     <color name="colorAccent">#ec4e20 </color>
     <color name="colorFroralWhite">#fffcf2 </color>
-    <color name="colorPaleSilver">#ccc5b9</color>
+    <color name="colorPaleSilver">#CCC5B9</color>
     <color name="bracoCor">#FFFFFF</color>
     <color name="colorCadetGrey">#7f7b82</color>
 </resources>
