@@ -1,6 +1,5 @@
 package com.comeze.rangelti.consultacnpj.views;
 
-
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,8 +10,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-
-
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,23 +17,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
 import com.comeze.rangelti.consultacnpj.R;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
 import com.comeze.rangelti.consultacnpj.views.custom.CreatePDF;
+import com.comeze.rangelti.consultacnpj.views.custom.MsgStatus;
+import com.comeze.rangelti.consultacnpj.views.custom.MyToos;
 import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +55,9 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     private CreatePDF createPDF;
     private CnpjEmpRest cnpjEmpRest;
     private CnpjEmpresaAdapter empresaAdapter;
+
+    private MsgStatus msg;
+    private MyToos toos;
 
     private AdapterView.OnItemClickListener selecionarCnpj = new AdapterView.OnItemClickListener ( ) {
 
@@ -110,6 +106,9 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         fltBtnPrint.setOnClickListener( this );
         fltBtnInfo.setOnClickListener( this );
         fltBtnSair.setOnClickListener( this );
+
+        msg = new MsgStatus(getApplicationContext());
+        toos = new MyToos(getApplicationContext());
     }
     //metudo que sobreescreve fontes coistomiza fonte
     @Override
@@ -119,47 +118,25 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onBackPressed()
     {
-      startMsg("Saindo...");
+      msg.startMsg("Saindo...");
       finish();
     }
-    //Metudo que ativa vibração
-    public void startVibrat ( long tempo ) {
-        // cria um obj atvib que recebe seu valor de context
-        Vibrator atvib = ( Vibrator ) getSystemService ( Context.VIBRATOR_SERVICE );
-        atvib.vibrate ( tempo );
-    }
-    //msg
-    public void startMsg(String message) {
 
-        int duration = Toast.LENGTH_LONG;
-        Toast toast  = Toast.makeText(getApplicationContext(), message, duration);
-        toast.show();
-
-    }
-
-    //trata string
-    private String beautifyCNPJ ( String doc ) {
-        doc = doc.replace ( ".", "" );
-        doc = doc.replace ( "/", "" );
-        doc = doc.replace ( "-", "" );
-        //startMsg ( String.format ( "%s", doc ) );
-        return doc;
-    }
     //captura cnpj e envia como parametro
     // para cnpjEmpRest
     private void getCnpj ( ) {
 
-        String cnpj = beautifyCNPJ ( edtCNPJ.getText ( ).toString ( ) );
+        String cnpj = toos.beautifyCNPJ ( edtCNPJ.getText ( ).toString ( ) );
 
         if ( cnpj.equals ( "" ) ) {
-            startMsg ( "Não é possivel fazer busca sem um CNPJ!" );
-            startMsg ( "Por favor, digite um CNPJ para consulta." );
+            msg.startMsg ( "Não é possivel fazer busca sem um CNPJ!" );
+            msg.startMsg ( "Por favor, digite um CNPJ para consulta." );
         } else {
 
             try {
                 cnpjEmpRest.listCnpj ( cnpj.trim ( ) );
             } catch ( Exception err ) {
-                startMsg ( "Ocorreu erro ao busca  CNPJ !..." );
+                msg.startMsg ( "Ocorreu erro ao busca  CNPJ !..." );
                 System.out.println ( "ERRO----------" + err );
             }
         }
@@ -276,11 +253,11 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
                     }
                     setMsg();
                 } else {
-                    startMsg("Dispositivo incompatível com impressão!");
-                    startMsg("Seu aparelho possui vesão inferior a KITKAT");
+                    msg.startMsg("Dispositivo incompatível com impressão!");
+                    msg.startMsg("Seu aparelho possui vesão inferior a KITKAT");
                 }//if verssao
             }else {
-                startMsg("Não há dados de consulta para gerar arquivo !");
+                msg.startMsg("Não há dados de consulta para gerar arquivo !");
             }//if empresa
         } else if (v.getId( ) == R.id.fltBtnInfo)
         {
@@ -327,12 +304,13 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setMsg() {
+
         String s = System.getProperty("MSG");
         if ( s.equals("OK")) {
-            startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
+            msg.startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
 
         }else {
-            startMsg("Falha na geração do arquivo:");
+            msg.startMsg("Falha na geração do arquivo:");
         }
     }
 
@@ -349,4 +327,11 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
+    //Metudo que ativa vibração
+    public void startVibrat ( long tempo ) {
+        // cria um obj atvib que recebe seu valor de context
+        Vibrator atvib = ( Vibrator ) getSystemService ( Context.VIBRATOR_SERVICE );
+        atvib.vibrate ( tempo );
+    }
+
 }

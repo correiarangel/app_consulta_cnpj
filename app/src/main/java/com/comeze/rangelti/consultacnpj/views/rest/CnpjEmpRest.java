@@ -10,9 +10,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
+import com.comeze.rangelti.consultacnpj.views.custom.MsgStatus;
 import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
 
 import org.json.JSONException;
@@ -31,13 +33,14 @@ public class CnpjEmpRest {
 	private CnpjEmpresaAdapter pla;
 	private ProgressDialog pDialog;
 	private CnpjEmpresa empesa;
+	private MsgStatus msg;
 	
 	
 	public CnpjEmpRest ( Context context, ListView lv ) {
 		this.context = context;
 		queue = Volley.newRequestQueue ( this.context );
 		this.lv = lv;
-		
+		msg = new MsgStatus( context );
 	}
 	
 	public void listCnpj ( final String cnpj ) {
@@ -50,11 +53,13 @@ public class CnpjEmpRest {
 		
 		
 		// prepare the Request
-		JsonObjectRequest getRequest = new JsonObjectRequest ( Request.Method.GET, url, null,
+		final JsonObjectRequest getRequest = new JsonObjectRequest ( Request.Method.GET, url, null,
+
 				new Response.Listener< JSONObject > ( ) {
 					@Override
 					public void onResponse ( JSONObject response ) {
-						
+
+
 						// display response
 						ArrayList< CnpjEmpresa > cnpjEmpresas = new ArrayList<> ( );
 						
@@ -105,21 +110,37 @@ public class CnpjEmpRest {
 							}
 							
 							cnpjEmpresas.add ( empesa );
+
 						} catch ( JSONException e ) {
 							e.printStackTrace ( );
+							String statusCode = e.getMessage();
+
+							if (statusCode.equals("No value for cnpj")){
+								msg.startMsg("CNPJ infomado é invalido !");
+							}
+
 						}
-						
+
 						
 						setPla ( new CnpjEmpresaAdapter ( getContext ( ), cnpjEmpresas ) );
 						getLv ( ).setAdapter ( getPla ( ) );
+
 						//fecha dialog
+
 						getpDialog ( ).dismiss ( );
 					}
 				},
 				new Response.ErrorListener ( ) {
 					@Override
 					public void onErrorResponse ( VolleyError error ) {
+
 						Log.d ( "Error.Response", error.toString ( ) );
+
+						int statusCode = error.networkResponse.statusCode;
+
+						String strKeyCode = String.valueOf( statusCode );
+						//chama metodo msgStatusCode da class MsgStatus que recebe strKeyCode
+						msg.msgStatusCode( strKeyCode );
 					}
 				}
 		);

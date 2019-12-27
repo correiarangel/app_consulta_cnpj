@@ -82,6 +82,7 @@ public class CreatePDF extends AppCompatActivity {
             //adiciona o texto ao PDF
             Paragraph p = new Paragraph("CONSULTA DE  CNPJ  :"+dataAtual+"\n"+"\n");
 
+
             p.add("CNPJ :"+empresa.getCnpj()+"\n");
             p.add("Razão Social :"+empresa.getNome()+"\n");
             p.add("Nome Fantasia:"+empresa.getFantasia()+"\n");
