@@ -1,16 +1,20 @@
 package com.comeze.rangelti.consultacnpj.views.rest;
 
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
@@ -22,10 +26,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
 public class CnpjEmpRest {
-	
-	
+
 	private String url;
 	private RequestQueue queue;
 	private Context context;
@@ -34,8 +36,7 @@ public class CnpjEmpRest {
 	private ProgressDialog pDialog;
 	private CnpjEmpresa empesa;
 	private MsgStatus msg;
-	
-	
+
 	public CnpjEmpRest ( Context context, ListView lv ) {
 		this.context = context;
 		queue = Volley.newRequestQueue ( this.context );
@@ -50,23 +51,18 @@ public class CnpjEmpRest {
 		pDialog.show ( );
 		
 		url = "http://www.receitaws.com.br/v1/cnpj/" + cnpj;
-		
-		
 		// prepare the Request
 		final JsonObjectRequest getRequest = new JsonObjectRequest ( Request.Method.GET, url, null,
 
 				new Response.Listener< JSONObject > ( ) {
 					@Override
 					public void onResponse ( JSONObject response ) {
-
-
 						// display response
 						ArrayList< CnpjEmpresa > cnpjEmpresas = new ArrayList<> ( );
 						
 						try {
 							
 							for ( int i = 0; i < response.length ( ); i++ ) {
-								
 								
 								String cnpj = response.getString ( "cnpj" );
 								String nome = response.getString ( "nome" );
@@ -97,8 +93,7 @@ public class CnpjEmpRest {
 								String capital_social = response.getString ( "capital_social" );
 								String qsa = response.getString ( "qsa" ); //Quadro de Sócios e Administradores.
 								String extra = response.getString ( "extra" );
-								
-								
+
 								empesa = new CnpjEmpresa ( boliing, status, cnpj, ultima_atualizacao
 										, tipo, abertura, nome, fantasia, atividade_principal
 										, atividades_secundarias, natureza_juridica, logradouro
@@ -108,11 +103,11 @@ public class CnpjEmpRest {
 										, situacao_especial, extra );
 								
 							}
-							
 							cnpjEmpresas.add ( empesa );
 
 						} catch ( JSONException e ) {
 							e.printStackTrace ( );
+
 							String statusCode = e.getMessage();
 
 							if (statusCode.equals("No value for cnpj")){
@@ -120,13 +115,9 @@ public class CnpjEmpRest {
 							}
 
 						}
-
-						
 						setPla ( new CnpjEmpresaAdapter ( getContext ( ), cnpjEmpresas ) );
 						getLv ( ).setAdapter ( getPla ( ) );
-
 						//fecha dialog
-
 						getpDialog ( ).dismiss ( );
 					}
 				},
@@ -134,52 +125,54 @@ public class CnpjEmpRest {
 					@Override
 					public void onErrorResponse ( VolleyError error ) {
 
+						int statusCode = 0;
+						statusCode = error.networkResponse.statusCode;
+
 						Log.d ( "Error.Response", error.toString ( ) );
 
-						int statusCode = error.networkResponse.statusCode;
+						String errorRetorn = error.toString ( );
 
-						String strKeyCode = String.valueOf( statusCode );
-						//chama metodo msgStatusCode da class MsgStatus que recebe strKeyCode
-						msg.msgStatusCode( strKeyCode );
+						if (errorRetorn.equals("com.android.volley.ClientError")){
+							msg.startMsg("Serviço indisponivel !");
+							msg.startMsg("Se você já fez três consultas aguarde um minuto !");
+							msg.startMsg("Antes de tentar novamente !");
+							msg.startMsg("Toque na tela para parar processo !");
+						}else if(statusCode > 0 ){
+							String strKeyCode = String.valueOf( statusCode );
+							//chama metodo msgStatusCode da class MsgStatus que recebe strKeyCode
+							msg.msgStatusCode( strKeyCode );
+						} else if (error instanceof NetworkError) {
+						} else if (error instanceof ServerError) {
+						} else if (error instanceof ParseError) {
+						} else if (error instanceof NoConnectionError) {
+						} else if (error instanceof TimeoutError) {
+							msg.startMsg("Oops.O tempo foi excedido. Timeout error :[");
+							System.out.println("Oops.O tempo foi excedido. Timeout error :[");
+						}
 					}
 				}
 		);
-		
+
+		getRequest.setRetryPolicy(new DefaultRetryPolicy(
+				10000,
+				DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 		// add it to the RequestQueue
 		queue.add ( getRequest );
-		
 	}
+
+	public Context getContext ( ) { return context;  }
+
+	public void setContext ( Context context ) { this.context = context; }
+
+	public ListView getLv ( ) { return lv; }
 	
+	public void setLv ( ListView lv ) { this.lv = lv; }
 	
-	public Context getContext ( ) {
-		return context;
-	}
+	public CnpjEmpresaAdapter getPla ( ) { return pla; }
 	
-	public void setContext ( Context context ) {
-		this.context = context;
-	}
+	public void setPla ( CnpjEmpresaAdapter pla ) { this.pla = pla; }
 	
-	public ListView getLv ( ) {
-		return lv;
-	}
-	
-	public void setLv ( ListView lv ) {
-		this.lv = lv;
-	}
-	
-	public CnpjEmpresaAdapter getPla ( ) {
-		return pla;
-	}
-	
-	public void setPla ( CnpjEmpresaAdapter pla ) {
-		this.pla = pla;
-	}
-	
-	public ProgressDialog getpDialog ( ) {
-		return pDialog;
-	}
+	public ProgressDialog getpDialog ( ) { return pDialog; }
 	
 }
-
-
-

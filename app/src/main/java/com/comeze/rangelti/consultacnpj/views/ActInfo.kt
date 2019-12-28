@@ -27,6 +27,11 @@ class ActInfo : AppCompatActivity() {
             startVibrat(90)
            finish()
         }
+        floatBtnPolitic.setOnClickListener{
+            startVibrat(90)
+            val it = Intent(this, ActPolitica::class.java)
+            startActivity(it)
+        }
 
     }
 

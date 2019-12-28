@@ -9,7 +9,6 @@ public class MsgStatus extends AppCompatActivity {
 
     private Context context;
 
-
     public MsgStatus(Context context) {
         this.context = context;
     }
@@ -57,6 +56,15 @@ public class MsgStatus extends AppCompatActivity {
         toast.show();
 
     }
+    public void setMsg() {
 
+        String s = System.getProperty("MSG");
+        if ( s.equals("OK")) {
+            startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
+
+        }else {
+            startMsg("Falha na geração do arquivo:");
+        }
+    }
 
 }

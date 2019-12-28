@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".views.ActPolitica"></activity>
         <activity
             android:name=".views.ActConsulta"
             android:label="@string/app_name"
@@ -28,11 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".views.ActInfo">
-
-        </activity>
-
+        <activity android:name=".views.ActInfo"></activity>
     </application>
 
 </manifest>

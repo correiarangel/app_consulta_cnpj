@@ -11,7 +11,6 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import java.util.Random;
+import java.util.UUID;
 
 public class CreatePDF extends AppCompatActivity {
 
@@ -49,10 +48,11 @@ public class CreatePDF extends AppCompatActivity {
                 file.mkdirs();
             }
 
-            //cria a stream de saída
-            Random gerador = new Random();
-            int n_arq = gerador.nextInt(1000);
-            String targetPdf = directory_path+"CNPJ:"+n_arq+".pdf";
+            //cria a stream de saída com nome unico
+            UUID uuid = UUID.randomUUID();
+
+            String n_arq = uuid.toString();
+            String targetPdf = directory_path+"ConsulaCNPJ:"+n_arq+".pdf";
             File filePath = new File(targetPdf);
 
             try {
@@ -78,10 +78,8 @@ public class CreatePDF extends AppCompatActivity {
 
             String dataAtual = dateFormat.format ( data_atual );
 
-
             //adiciona o texto ao PDF
             Paragraph p = new Paragraph("CONSULTA DE  CNPJ  :"+dataAtual+"\n"+"\n");
-
 
             p.add("CNPJ :"+empresa.getCnpj()+"\n");
             p.add("Razão Social :"+empresa.getNome()+"\n");
@@ -92,9 +90,7 @@ public class CreatePDF extends AppCompatActivity {
             p.add("Tipo :"+empresa.getTipo()+"\n");
             p.add("Data Abetura :"+ empresa.getAbertura()+"\n");
             p.add("Atividade principal:"+empresa.getAtividade_principal()+"\n");
-
             p.add("Natureza Juridica :"+empresa.getNatureza_juridica()+"\n");
-            p.add("Natureza Juridica :"+ empresa.getNatureza_juridica()+"\n");
             p.add("Longradouro:"+ empresa.getLogradouro()+"\n");
             p.add("Numero :"+ empresa.getNumero()+"\n");
             p.add("Complemento :"+ empresa.getComplemento()+"\n");
@@ -110,7 +106,6 @@ public class CreatePDF extends AppCompatActivity {
             p.add("Situação Especial :"+ empresa.getSituacao_especial()+"\n");
 
             p.add("Capital Social :"+ empresa.getQsa()+"\n");
-
             p.add("Quadro de Socios :"+ empresa.getCapital_social()+"\n");
 
             p.add("\n\n");

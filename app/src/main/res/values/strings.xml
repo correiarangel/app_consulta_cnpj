@@ -7,4 +7,14 @@
     <string name="txt_cnpj">CNPJ:</string>
     <string name="permission_necessary">Permissão Necessaria</string>
     <string name="storage_permission_is_encessary_to_wrote_event">Permissão de armazenamento é necessária para gravar o evento.</string>
+    <string name="app_cunsulta_cnpj">App Cunsulta CNPJ</string>
+    <string name="desenvolvedor_android_jr">Desenvolvedor Android Jr.</string>
+    <string name="vers_o_1_0_0">Versão 1.0.0</string>
+    <string name="desenvolvido_por">Desenvolvido por</string>
+    <string name="wm_digital_techs">WM Digital Techs</string>
+    <string name="contate_nos">Contate-nos</string>
+    <string name="marcos_correia_rangel">Marcos Correia Rangel</string>
+    <string name="wendreo_l_fernandes">Wendreo L. Fernandes</string>
+    <string name="todo">TODO</string>
+
 </resources>

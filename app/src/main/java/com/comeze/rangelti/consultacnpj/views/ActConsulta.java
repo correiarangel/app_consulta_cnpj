@@ -39,7 +39,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-
 public class ActConsulta extends AppCompatActivity implements View.OnClickListener {
 
     private static final int PERMISSION_REQUEST_CODE = 200;
@@ -59,7 +58,8 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     private MsgStatus msg;
     private MyToos toos;
 
-    private AdapterView.OnItemClickListener selecionarCnpj = new AdapterView.OnItemClickListener ( ) {
+    private AdapterView.OnItemClickListener selecionarCnpj =
+            new AdapterView.OnItemClickListener ( ) {
 
         public void onItemClick ( AdapterView< ? > arg0, View arg1, int pos, long id ) {
 
@@ -120,26 +120,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     {
       msg.startMsg("Saindo...");
       finish();
-    }
-
-    //captura cnpj e envia como parametro
-    // para cnpjEmpRest
-    private void getCnpj ( ) {
-
-        String cnpj = toos.beautifyCNPJ ( edtCNPJ.getText ( ).toString ( ) );
-
-        if ( cnpj.equals ( "" ) ) {
-            msg.startMsg ( "Não é possivel fazer busca sem um CNPJ!" );
-            msg.startMsg ( "Por favor, digite um CNPJ para consulta." );
-        } else {
-
-            try {
-                cnpjEmpRest.listCnpj ( cnpj.trim ( ) );
-            } catch ( Exception err ) {
-                msg.startMsg ( "Ocorreu erro ao busca  CNPJ !..." );
-                System.out.println ( "ERRO----------" + err );
-            }
-        }
     }
     /* Metudos verificam permissão de leitura e gravação em disco
      * Em tempo de execução só funcionou com  checkPermission
@@ -229,7 +209,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         if ( v.getId ( ) == R.id.btnPesquisar )
         {
             startVibrat ( 90 );
-            getCnpj ( );
+            toos.getCnpj (edtCNPJ,cnpjEmpRest );
             hideKeyboard( v );
 
         } else if ( v.getId ( ) == R.id.fltBtnPrint ) {
@@ -251,7 +231,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    setMsg();
+                    msg.setMsg();
                 } else {
                     msg.startMsg("Dispositivo incompatível com impressão!");
                     msg.startMsg("Seu aparelho possui vesão inferior a KITKAT");
@@ -269,7 +249,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             startVibrat ( 90 );
             finish();
         }
-
     }
     // dialog
     private void alertPrint (final CnpjEmpresa emp ) {
@@ -288,7 +267,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 
                     createPDF.gerar();
                     clearComponet();
-                    setMsg();
+                    msg.setMsg();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -303,17 +282,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         dialog.show ( );
     }
 
-    public void setMsg() {
-
-        String s = System.getProperty("MSG");
-        if ( s.equals("OK")) {
-            msg.startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
-
-        }else {
-            msg.startMsg("Falha na geração do arquivo:");
-        }
-    }
-
     private void clearComponet()
     {
         edtCNPJ.setText("");
@@ -322,16 +290,15 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         lvCNPJ.setAdapter ( empresaAdapter );
     }
     //oculta teclado
-    public void hideKeyboard( View v )
+    private void hideKeyboard( View v )
     {
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
     //Metudo que ativa vibração
-    public void startVibrat ( long tempo ) {
+    private void startVibrat ( long tempo ) {
         // cria um obj atvib que recebe seu valor de context
         Vibrator atvib = ( Vibrator ) getSystemService ( Context.VIBRATOR_SERVICE );
         atvib.vibrate ( tempo );
     }
-
 }
