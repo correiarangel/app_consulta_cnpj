@@ -106,7 +106,8 @@
                 android:paddingStart="10sp"
                 android:src="@drawable/email"
                 android:tag="mailto:correiarangel@bol.com.br"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:contentDescription="@string/todo" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -142,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:text="Desenvolvedor de Aplicações Móveis"
+            android:text="@string/desenvolvedor"
             android:textColor="@color/colorFroralWhite"
             android:textSize="18sp" />
 
@@ -169,7 +170,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="openBrowser"
                 android:src="@drawable/linkedin"
-                android:tag="https://www.linkedin.com/in/wendreof" />
+                android:tag="https://www.linkedin.com/in/wendreof"
+                android:contentDescription="@string/todo" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -197,7 +199,8 @@
                 android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close" />
+                app:srcCompat="@drawable/ic_close"
+                android:focusable="true" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatBtnPolitic"

@@ -1,5 +1,6 @@
 package com.comeze.rangelti.consultacnpj.views.custom;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -23,7 +24,6 @@ import java.util.UUID;
 public class CreatePDF extends AppCompatActivity {
 
     private CnpjEmpresa empresa;
-
 
     public CreatePDF( CnpjEmpresa empresa) {
 
@@ -50,9 +50,11 @@ public class CreatePDF extends AppCompatActivity {
 
             //cria a stream de saída com nome unico
             UUID uuid = UUID.randomUUID();
-
             String n_arq = uuid.toString();
-            String targetPdf = directory_path+"ConsulaCNPJ:"+n_arq+".pdf";
+            String arq = "ConsulaCNPJ:"+n_arq+".pdf";
+
+            String targetPdf = directory_path + arq ;
+
             File filePath = new File(targetPdf);
 
             try {
@@ -62,17 +64,18 @@ public class CreatePDF extends AppCompatActivity {
                 PdfWriter.getInstance(doc, os);
                 //abre o documento
                 doc.open();
+                //set OK em MSG KEY
                 System.setProperty("MSG","OK");
+                System.setProperty("KEY_NAME_FILE",arq);
 
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 Log.e("main", "error "+e.toString());
-
                 System.setProperty("MSG","ERROR");
-
             }
 
             //capitura data e formata
-            SimpleDateFormat dateFormat = new SimpleDateFormat ( "dd/MM/yyyy" );
+            SimpleDateFormat dateFormat = new SimpleDateFormat ( "dd/MM/yyyy HH:mm:ss" );
             Calendar cal = Calendar.getInstance ( );
             Date data_atual = cal.getTime ( );
 

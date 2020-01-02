@@ -59,8 +59,12 @@ public class MsgStatus extends AppCompatActivity {
     public void setMsg() {
 
         String s = System.getProperty("MSG");
+        //captura nome do arquivo e set
+        String nameFile = System.getProperty("KEY_NAME_FILE");
+
         if ( s.equals("OK")) {
-            startMsg("Arquivo gerado com sucesso na raiz do seu dispositivo!");
+            startMsg("Arquivo com nome :"+nameFile);
+            startMsg("Foi gerado com sucesso na raiz do seu dispositivo!");
 
         }else {
             startMsg("Falha na geração do arquivo:");

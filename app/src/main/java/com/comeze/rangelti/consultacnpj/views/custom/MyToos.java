@@ -34,14 +34,18 @@ public class MyToos extends AppCompatActivity {
         if ( cnpj.equals ( "" ) ) {
             msg.startMsg ( "Não é possivel fazer busca sem um CNPJ!" );
             msg.startMsg ( "Por favor, digite um CNPJ para consulta." );
+        } else if( cnpj.length() < 14 ){
+            msg.startMsg ( "CNPJ o composto por 14 numeros " );
+            msg.startMsg("Você digitou :"+cnpj.length() +" numeros.");
+            msg.startMsg ( "Digite um CNPJ VALIDO !" );
         } else {
-
             try {
                 rest.listCnpj ( cnpj.trim ( ) );
             } catch ( Exception err ) {
                 msg.startMsg ( "Ocorreu erro ao busca o CNPJ !..." );
-                System.out.println ( "ERRO----------" + err );
             }
         }
     }
-}
+
+
+}//end class

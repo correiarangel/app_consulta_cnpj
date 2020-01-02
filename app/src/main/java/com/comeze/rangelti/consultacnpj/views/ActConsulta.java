@@ -56,7 +56,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     private CnpjEmpresaAdapter empresaAdapter;
 
     private MsgStatus msg;
-    private MyToos toos;
+    private MyToos tools;
 
     private AdapterView.OnItemClickListener selecionarCnpj =
             new AdapterView.OnItemClickListener ( ) {
@@ -87,6 +87,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         testePermissoes();
 
         System.clearProperty("MSG");
+        System.clearProperty("KEY_NAME_FILE");
     }
 
     public void startComponent ( ) {
@@ -108,7 +109,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         fltBtnSair.setOnClickListener( this );
 
         msg = new MsgStatus(getApplicationContext());
-        toos = new MyToos(getApplicationContext());
+        tools = new MyToos(getApplicationContext());
     }
     //metudo que sobreescreve fontes coistomiza fonte
     @Override
@@ -209,7 +210,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         if ( v.getId ( ) == R.id.btnPesquisar )
         {
             startVibrat ( 90 );
-            toos.getCnpj (edtCNPJ,cnpjEmpRest );
+            tools.getCnpj (edtCNPJ,cnpjEmpRest );
             hideKeyboard( v );
 
         } else if ( v.getId ( ) == R.id.fltBtnPrint ) {
@@ -223,18 +224,18 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
-                    createPDF = new CreatePDF(empresa);
+                    createPDF = new CreatePDF( empresa );
 
                     try {
                         createPDF.gerar();
                         clearComponet();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     msg.setMsg();
                 } else {
-                    msg.startMsg("Dispositivo incompatível com impressão!");
-                    msg.startMsg("Seu aparelho possui vesão inferior a KITKAT");
+                    msg.startMsg("Dispositivo incompatível com impressão de arquivo em PDF!");
                 }//if verssao
             }else {
                 msg.startMsg("Não há dados de consulta para gerar arquivo !");
@@ -262,7 +263,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick ( DialogInterface dialog, int which )
             {
-                createPDF = new CreatePDF( emp );
+                createPDF = new CreatePDF( emp  );
                 try {
 
                     createPDF.gerar();
@@ -292,7 +293,8 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
     //oculta teclado
     private void hideKeyboard( View v )
     {
-        InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getApplicationContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
     //Metudo que ativa vibração

@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
@@ -125,36 +126,56 @@ public class CnpjEmpRest {
 					@Override
 					public void onErrorResponse ( VolleyError error ) {
 
-						int statusCode = 0;
-						statusCode = error.networkResponse.statusCode;
-
-						Log.d ( "Error.Response", error.toString ( ) );
+						String erroConexao = "com.android.volley.NoConnectionError: " +
+								"java.net.UnknownHostException: Unable to resolve host " +
+								"\"www.receitaws.com.br\": No address associated with hostname";
+						String erroPermissao = "com.android.volley.VolleyError: " +
+								"java.lang.SecurityException: " +
+								"Permission denied (missing INTERNET permission?)";
 
 						String errorRetorn = error.toString ( );
 
-						if (errorRetorn.equals("com.android.volley.ClientError")){
-							msg.startMsg("Serviço indisponivel !");
+						if (errorRetorn.equals("com.android.volley.ClientError")) {
+
+							msg.startMsg("Serviço indisponivel :[");
 							msg.startMsg("Se você já fez três consultas aguarde um minuto !");
 							msg.startMsg("Antes de tentar novamente !");
-							msg.startMsg("Toque na tela para parar processo !");
-						}else if(statusCode > 0 ){
-							String strKeyCode = String.valueOf( statusCode );
-							//chama metodo msgStatusCode da class MsgStatus que recebe strKeyCode
-							msg.msgStatusCode( strKeyCode );
+							msg.startMsg("Toque na tela para parar o processo !");
+
+						} else if(errorRetorn.equals(erroConexao)) {
+
+							msg.startMsg("Internet indisponivel :[");
+							msg.startMsg("Virifique sua conexão !");
+							msg.startMsg("Toque na tela para parar o processo !");
+
+						} else if(errorRetorn.equals("com.android.volley.ServerError")) {
+
+							msg.startMsg("Serviço falhou :[");
+							msg.startMsg("Rota para Servidor não encontrada!");
+							msg.startMsg("Tente novamente em alguns minutos !");
+							msg.startMsg("Toque na tela para parar o processo !");
+
+						} else if(errorRetorn.equals(erroPermissao)) {
+
+							msg.startMsg("Não há permissão para conexão com Internet :[");
+							msg.startMsg("Se o erro continuar remoava e reinstale o App!");
+							msg.startMsg("Toque na tela para parar o processo !");
+
 						} else if (error instanceof NetworkError) {
 						} else if (error instanceof ServerError) {
 						} else if (error instanceof ParseError) {
 						} else if (error instanceof NoConnectionError) {
-						} else if (error instanceof TimeoutError) {
+						} else if (error instanceof TimeoutError)
+						{
 							msg.startMsg("Oops.O tempo foi excedido. Timeout error :[");
-							System.out.println("Oops.O tempo foi excedido. Timeout error :[");
+
 						}
 					}
 				}
 		);
 
 		getRequest.setRetryPolicy(new DefaultRetryPolicy(
-				10000,
+				15000,
 				DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 		// add it to the RequestQueue
