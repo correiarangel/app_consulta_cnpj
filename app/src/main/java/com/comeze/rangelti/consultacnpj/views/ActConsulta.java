@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,7 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
 
     private EditText edtCNPJ;
     private Button btnPesquisar;
+    private ImageButton imgBtnClear;
     private CnpjEmpresa empresa;
     private List< CnpjEmpresa > cnpjEmpresas;
     private FloatingActionButton fltBtnPrint;
@@ -73,7 +75,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             }
         }
     };
-
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
@@ -85,7 +86,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         lvCNPJ.setOnItemClickListener ( selecionarCnpj );
         //call method read write
         testePermissoes();
-
         System.clearProperty("MSG");
         System.clearProperty("KEY_NAME_FILE");
     }
@@ -97,16 +97,17 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         fltBtnSair = findViewById( R.id.fltBtnSair);
         edtCNPJ = findViewById ( R.id.edtCNPJ );
         btnPesquisar = findViewById ( R.id.btnPesquisar );
+        imgBtnClear = findViewById( R.id.imgBtnClear);
         lvCNPJ = findViewById ( R.id.lvCNPJ );
         //empresaAdapter e iniciado em clearComponet()
         clearComponet();
-
         cnpjEmpRest = new CnpjEmpRest ( this, lvCNPJ );
 
         btnPesquisar.setOnClickListener( this );
         fltBtnPrint.setOnClickListener( this );
         fltBtnInfo.setOnClickListener( this );
         fltBtnSair.setOnClickListener( this );
+        imgBtnClear.setOnClickListener( this );
 
         msg = new MsgStatus(getApplicationContext());
         tools = new MyToos(getApplicationContext());
@@ -249,6 +250,9 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         {
             startVibrat ( 90 );
             finish();
+        }else if (v.getId() == R.id.imgBtnClear){
+            startVibrat ( 90 );
+            edtCNPJ.setText("");
         }
     }
     // dialog
@@ -265,7 +269,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
             {
                 createPDF = new CreatePDF( emp  );
                 try {
-
                     createPDF.gerar();
                     clearComponet();
                     msg.setMsg();
@@ -274,7 +277,6 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
                 }
             }
         } );
-
         alert.setNegativeButton ( "Não", new DialogInterface.OnClickListener ( ) {
             @Override
             public void onClick ( DialogInterface dialog, int which ) { }

@@ -16,10 +16,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/fltBtnPrint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_info"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_info" />
 
     <Button
         android:id="@+id/btnPesquisar"
@@ -74,18 +74,18 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/fltBtnInfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_close"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_close" />
 
     <com.vicmikhailau.maskededittext.MaskedEditText
         android:id="@+id/edtCNPJ"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
         android:hint="@string/hide_cnpj"
         android:inputType="number"
@@ -93,11 +93,25 @@
         android:textColor="@color/colorPaleSilver"
         android:textColorHint="@color/bracoCor"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnClear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:mask="##.###.###/####-##"
         tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/imgBtnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btnPesquisar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_clear"
+        android:contentDescription="@string/tod" />
 
     <!-- Example: 65.655.130/0001-08 -->
 
