@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#575A5E</color>
     <color name="colorPrimaryDark">#1B2021</color>
-    <color name="colorAccent">#ec4e20 </color>
+    <color name="colorAccent">#ec4e20 </color>FA6C38
+    <color name="colorOregeClayola">#FA6C38</color>
     <color name="colorFroralWhite">#fffcf2 </color>
     <color name="colorPaleSilver">#CCC5B9</color>
     <color name="bracoCor">#FFFFFF</color>

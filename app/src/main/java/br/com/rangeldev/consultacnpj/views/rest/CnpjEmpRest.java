@@ -1,8 +1,7 @@
-package com.comeze.rangelti.consultacnpj.views.rest;
+package br.com.rangeldev.consultacnpj.views.rest;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -15,12 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
-import com.comeze.rangelti.consultacnpj.views.custom.MsgStatus;
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
+import br.com.rangeldev.consultacnpj.views.adpter.CnpjEmpresaAdapter;
+import br.com.rangeldev.consultacnpj.views.custom.MsgStatus;
+import br.com.rangeldev.consultacnpj.views.model.CnpjEmpresa;
 
 import org.json.JSONException;
 import org.json.JSONObject;

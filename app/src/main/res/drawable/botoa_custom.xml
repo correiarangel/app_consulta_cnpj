@@ -9,12 +9,12 @@
 
     <stroke
         android:width="2dp"
-        android:color="@android:color/background_dark"
+        android:color="@android:color/primary_text_light"
         />
 
     <gradient
-        android:startColor="@color/colorAccent"
-        android:endColor="@color/colorAccent"
+        android:startColor="@color/colorOregeClayola"
+        android:endColor="@color/colorOregeClayola"
         android:angle="45"
-        android:centerColor="@color/colorAccent"/>
+        android:centerColor="@color/colorOregeClayola"/>
 </shape>

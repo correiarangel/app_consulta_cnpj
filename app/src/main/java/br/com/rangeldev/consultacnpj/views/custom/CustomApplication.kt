@@ -1,4 +1,4 @@
-package com.comeze.rangelti.consultacnpj.views.custom
+package br.com.rangeldev.consultacnpj.views.custom
 
 import android.app.Application
 

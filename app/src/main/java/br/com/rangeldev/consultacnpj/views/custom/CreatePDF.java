@@ -1,12 +1,11 @@
-package com.comeze.rangelti.consultacnpj.views.custom;
+package br.com.rangeldev.consultacnpj.views.custom;
 
-import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
+import br.com.rangeldev.consultacnpj.views.model.CnpjEmpresa;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;

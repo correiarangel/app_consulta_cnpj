@@ -1,4 +1,4 @@
-package com.comeze.rangelti.consultacnpj.views;
+package br.com.rangeldev.consultacnpj.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 

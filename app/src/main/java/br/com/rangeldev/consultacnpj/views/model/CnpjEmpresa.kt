@@ -1,4 +1,4 @@
-package com.comeze.rangelti.consultacnpj.views.model
+package br.com.rangeldev.consultacnpj.views.model
 
 
 

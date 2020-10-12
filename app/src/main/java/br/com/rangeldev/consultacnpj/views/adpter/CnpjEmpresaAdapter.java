@@ -1,4 +1,4 @@
-package com.comeze.rangelti.consultacnpj.views.adpter;
+package br.com.rangeldev.consultacnpj.views.adpter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,14 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.comeze.rangelti.consultacnpj.R;
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
+import br.com.rangeldev.consultacnpj.views.model.CnpjEmpresa;
 
 import java.util.List;
 
 public class CnpjEmpresaAdapter extends BaseAdapter {
 	
 	private Context context;
-	private List< CnpjEmpresa > lista;
+	private List<CnpjEmpresa> lista;
 	
 	public CnpjEmpresaAdapter ( Context context, List< CnpjEmpresa > lista ) {
 		this.context = context;

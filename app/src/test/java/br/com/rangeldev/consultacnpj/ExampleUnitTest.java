@@ -1,4 +1,4 @@
-package com.comeze.rangelti.consultacnpj;
+package br.com.rangeldev.consultacnpj;
 
 import org.junit.Test;
 

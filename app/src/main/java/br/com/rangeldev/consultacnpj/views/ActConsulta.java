@@ -1,4 +1,4 @@
-package com.comeze.rangelti.consultacnpj.views;
+package br.com.rangeldev.consultacnpj.views;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -24,12 +24,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.comeze.rangelti.consultacnpj.R;
-import com.comeze.rangelti.consultacnpj.views.adpter.CnpjEmpresaAdapter;
-import com.comeze.rangelti.consultacnpj.views.custom.CreatePDF;
-import com.comeze.rangelti.consultacnpj.views.custom.MsgStatus;
-import com.comeze.rangelti.consultacnpj.views.custom.MyToos;
-import com.comeze.rangelti.consultacnpj.views.model.CnpjEmpresa;
-import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
+import br.com.rangeldev.consultacnpj.views.adpter.CnpjEmpresaAdapter;
+import br.com.rangeldev.consultacnpj.views.custom.CreatePDF;
+import br.com.rangeldev.consultacnpj.views.custom.MsgStatus;
+import br.com.rangeldev.consultacnpj.views.custom.MyToos;
+import br.com.rangeldev.consultacnpj.views.model.CnpjEmpresa;
+import br.com.rangeldev.consultacnpj.views.rest.CnpjEmpRest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

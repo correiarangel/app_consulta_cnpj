@@ -3,7 +3,7 @@
     <string name="menu_info">Info</string>
     <string name="txt_url">URL:</string>
     <string name="btn_pesquisar">PESQUISAR</string>
-    <string name="hide_cnpj">Digite ou copie um CNPJ aqui.</string>
+    <string name="hide_cnpj">Digite um CNPJ...</string>
     <string name="txt_cnpj">CNPJ:</string>
     <string name="permission_necessary">Permissão Necessaria</string>
     <string name="storage_permission_is_encessary_to_wrote_event">Permissão de armazenamento é necessária para gravar o evento.</string>

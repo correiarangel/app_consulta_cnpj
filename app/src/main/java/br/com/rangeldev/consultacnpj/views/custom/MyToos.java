@@ -1,10 +1,10 @@
-package com.comeze.rangelti.consultacnpj.views.custom;
+package br.com.rangeldev.consultacnpj.views.custom;
 
 import android.content.Context;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.comeze.rangelti.consultacnpj.views.rest.CnpjEmpRest;
+import br.com.rangeldev.consultacnpj.views.rest.CnpjEmpRest;
 
 
 public class MyToos extends AppCompatActivity {
