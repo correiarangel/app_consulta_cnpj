@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.comeze.rangelti.consultacnpj.R;
+import br.com.rangeldev.consultacnpj.R;
 import br.com.rangeldev.consultacnpj.views.model.CnpjEmpresa;
 
 import java.util.List;

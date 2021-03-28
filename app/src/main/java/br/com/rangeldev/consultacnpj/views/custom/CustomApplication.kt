@@ -2,7 +2,7 @@ package br.com.rangeldev.consultacnpj.views.custom
 
 import android.app.Application
 
-import com.comeze.rangelti.consultacnpj.R
+import br.com.rangeldev.consultacnpj.R
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 

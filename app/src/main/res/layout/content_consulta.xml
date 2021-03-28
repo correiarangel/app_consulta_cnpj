@@ -20,7 +20,8 @@
         app:backgroundTint="@color/colorOregeClayola"
         app:layout_constraintBottom_toTopOf="@+id/fltBtnPrint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_info" />
+        app:srcCompat="@drawable/ic_info"
+        android:contentDescription="@string/todos" />
 
     <Button
         android:id="@+id/btnPesquisar"
@@ -67,7 +68,8 @@
         app:backgroundTint="@color/colorOregeClayola"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_pdf" />
+        app:srcCompat="@drawable/ic_pdf"
+        android:contentDescription="@string/todoss" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fltBtnSair"
@@ -80,7 +82,8 @@
         app:backgroundTint="@color/colorOregeClayola"
         app:layout_constraintBottom_toTopOf="@+id/fltBtnInfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_close" />
+        app:srcCompat="@drawable/ic_close"
+        android:contentDescription="@string/todo" />
 
     <com.vicmikhailau.maskededittext.MaskedEditText
         android:id="@+id/edtCNPJ"

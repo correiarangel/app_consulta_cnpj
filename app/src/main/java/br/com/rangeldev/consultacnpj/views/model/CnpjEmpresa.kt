@@ -14,8 +14,8 @@ data class CnpjEmpresa(
         //para CNPJs da administração pública.
         var efr: String?, var situacao: String?, var motivo_situacao: String?,
         var situacao_especial: String?, var data_situacao_especial: String?, var capital_social: String?,
-        var qsa: String? //Quadro de Sócios e Administradores.
-        , //  private String qual;
+        var qsa: String?, //Quadro de Sócios e Administradores.
+        //  private String qual;
         var extra: String?)//this.qual= qual;
 
 

@@ -9,7 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.comeze.rangelti.consultacnpj.R;
+import br.com.rangeldev.consultacnpj.R;
 
 public class ActPolitica extends AppCompatActivity {
     private WebView webPolitica;

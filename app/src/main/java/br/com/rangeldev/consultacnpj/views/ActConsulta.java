@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.comeze.rangelti.consultacnpj.R;
+import br.com.rangeldev.consultacnpj.R;
 import br.com.rangeldev.consultacnpj.views.adpter.CnpjEmpresaAdapter;
 import br.com.rangeldev.consultacnpj.views.custom.CreatePDF;
 import br.com.rangeldev.consultacnpj.views.custom.MsgStatus;
@@ -39,6 +39,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static br.com.rangeldev.consultacnpj.R.layout.act_consulta;
 
 public class ActConsulta extends AppCompatActivity implements View.OnClickListener {
 
@@ -113,10 +114,10 @@ public class ActConsulta extends AppCompatActivity implements View.OnClickListen
         tools = new MyToos(getApplicationContext());
     }
     //metudo que sobreescreve fontes coistomiza fonte
-    @Override
-    protected void attachBaseContext ( Context newBase ) {
-        super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
-    }
+    //@Override
+    //protected void attachBaseContext ( Context newBase ) {
+    //    super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
+    //}
     @Override
     public void onBackPressed()
     {

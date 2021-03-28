@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.comeze.rangelti.consultacnpj", appContext.getPackageName());
+        assertEquals("br.com.rangeldev.consultacnpj", appContext.getPackageName());
     }
 }

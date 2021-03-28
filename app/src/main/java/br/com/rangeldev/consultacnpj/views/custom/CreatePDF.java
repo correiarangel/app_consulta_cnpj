@@ -1,5 +1,6 @@
 package br.com.rangeldev.consultacnpj.views.custom;
 
+import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.util.Log;
 
@@ -74,6 +75,7 @@ public class CreatePDF extends AppCompatActivity {
             }
 
             //capitura data e formata
+            @SuppressLint("SimpleDateFormat")
             SimpleDateFormat dateFormat = new SimpleDateFormat ( "dd/MM/yyyy HH:mm:ss" );
             Calendar cal = Calendar.getInstance ( );
             Date data_atual = cal.getTime ( );

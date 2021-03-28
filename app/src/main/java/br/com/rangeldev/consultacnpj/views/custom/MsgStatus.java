@@ -17,7 +17,7 @@ public class MsgStatus extends AppCompatActivity {
 
         switch ( keyMsg ){
             case "No value for cnpj" :
-                startMsg("CNPJ infomado é invalido!");break;
+                startMsg("CNPJ informado é invalido!");break;
             case "200" :
                 startMsg("Carregando dados...");break;
             case "300" :

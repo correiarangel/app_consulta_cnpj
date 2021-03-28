@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.os.Vibrator
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.comeze.rangelti.consultacnpj.R
+import br.com.rangeldev.consultacnpj.R
 import kotlinx.android.synthetic.main.act_info.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -24,20 +24,18 @@ class ActInfo : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         flotBtnSair.setOnClickListener {
-            startVibrat(90)
+           // startVibrat(90)
            finish()
         }
         floatBtnPolitic.setOnClickListener{
-            startVibrat(90)
+           // startVibrat(90)
             val it = Intent(this, ActPolitica::class.java)
             startActivity(it)
         }
 
     }
 
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-    }
+
 
     fun openBrowser(view: View) {
 
@@ -59,8 +57,8 @@ class ActInfo : AppCompatActivity() {
     }
 
     //Metudo que ativa vibração
-    fun startVibrat(tempo: Long) { // cria um obj atvib que recebe seu valor de context
-        val atvib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        atvib.vibrate(tempo)
-    }
+   // fun startVibrat(tempo: Long) { // cria um obj atvib que recebe seu valor de context
+   //     val atvib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+   //     atvib.vibrate(tempo)
+   // }
 }
